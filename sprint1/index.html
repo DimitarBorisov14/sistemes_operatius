@@ -54,48 +54,19 @@
         <li><strong>Contingut del fitxer:</strong></li>
     </ul>
 
-    <div class="terminal" style="background-color: #1a1a1a; border-top: 20px solid #777; padding-top: 5px;">GNU nano 7.2                        /etc/apt/preferences.d/nginx-pin
-Package: *
-Pin: release o=ubuntu
-Pin-Priority: 500
-
-Package: nginx
-<span class="highlight">Pin: version 1.24.0-2ubuntu7</span>
-Pin-Priority: 1001</div>
+    <img src="sprint1/PAS2.png" alt="Pas 2">
 
     <h3>Pas 3: Verificació de la nova política</h3>
     <p>Es torna a comprovar l'estat del paquet amb permisos d'administrador:</p>
 
-    <div class="terminal"><span class="prompt">alumnat@insebre:~$</span> sudo apt-cache policy nginx
-nginx:
-  Instalados: (ninguno)
-  Candidato:  <span class="highlight">1.24.0-2ubuntu7</span>
-  Tabla de versión:
-     1.24.0-2ubuntu7.18 500
-        500 http://es.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages
-        500 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages
-     <span class="highlight">1.24.0-2ubuntu7 1001</span>
-        500 http://es.archive.ubuntu.com/ubuntu noble/main amd64 Packages</div>
+    <img src="sprint1/PAS3.png" alt="Pas 3">
 
     <p><strong>Resultat:</strong> Es confirma que el canvi s'ha aplicat correctament. Ara el Candidat ha passat a ser la versió fixada: 1.24.0-2ubuntu7 amb una prioritat de 1001.</p>
 
     <h3>Pas 4: Intent d'instal·lació i error de dependències</h3>
     <p>S'intenta instal·lar el servidor web amb l'ordre:</p>
 
-    <div class="terminal"><span class="prompt">alumnat@insebre:~$</span> sudo apt install nginx
-[sudo] contraseña para alumnat: 
-Leyendo lista de paquetes... Hecho
-Creando árbol de dependencias... Hecho
-Leyendo la información de estado... Hecho
-No se pudieron instalar algunos paquetes. Esto puede significar que
-usted pidió una situación imposible o, si está usando la distribución
-inestable, que algunos paquetes necesarios aún no se han creado o se
-han sacado de «Incoming».
-La siguiente información puede ayudar a resolver la situación:
-
-Los siguientes paquetes tienen dependencias incumplidas:
- nginx : Depende: nginx-common (= 1.24.0-2ubuntu7) pero 1.24.0-2ubuntu7.18 va a ser instalado
-<span class="error-text">E: No se pudieron corregir los problemas, usted ha retenido paquetes rotos.</span></div>
+    <img src="sprint1/PAS4.png" alt="Pas 4">
 
     <p><strong>Resultat (Error):</strong> El procés falla amb el següent missatge d'error de dependències incompletes.</p>
 
