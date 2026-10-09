@@ -164,7 +164,7 @@ main { padding-bottom: 50px; }
 .targeta h3 { margin: 0 0 4px; color: var(--tinta); font-size: 1.05rem; }
 .targeta p { margin: 0; color: var(--tinta-suau); font-size: 0.9rem; }
 
-h1, h2 { color: var(--mari); }
+h1, h2 { color: var(--teal); }
 
 .consell {
   color: var(--tinta-suau);
