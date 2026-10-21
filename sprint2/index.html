@@ -60,12 +60,7 @@
         <h2>Punt 3.2: Mira què hi ha ara al disc</h2>
         <p>Després de realitzar el formateig d'alt nivell amb l'ordre mkfs.ext4 -E nodiscard disc.img, es torna a muntar el disc virtual per comprovar el seu contingut abans de desmuntar-lo de nou. Els fitxers han desaparegut de l'índex i el disc sembla buit, mostrant només la carpeta lost+found.</p>
         <p>Ordres executades:</p>
-        <pre>
-        sudo mount -o loop disc.img /mnt/prova
-        ls -l /mnt/prova
-        sudo umount /mnt/prova
-        ls -l /mnt/prova
-        </pre>
+       
         <img src="image_cHKf0W.png" alt="Captura del pas 3.2 on es veu el disc buit amb la carpeta lost+found">
         
         <h2>Punt 4.3: Comprova que són idèntics</h2>
