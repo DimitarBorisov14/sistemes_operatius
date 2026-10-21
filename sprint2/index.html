@@ -48,6 +48,7 @@
       <h3>Sistemes de fitxers</h3>
       
       <h3>Tipus de formateig</h3>
+      <p>En aquesta pràctica comprovarem que formatar un disc no vol dir esborrar els fitxers. Desarem una foto, un PDF i un text en un disc, el formatarem i després els recuperarem. Al final esborrarem el disc de veritat i veureurem que ja no es pot recuperar res. No tocarem el disc del nostre ordinador. Treballarem amb un disc virtual, un fitxer que fa de disc. Si ens equivoquem, el podem esborrar i tornar a començar</p>
       <h2>Punt 2.4: Desa l'empremta digital dels originals</h2>
         <p>Un hash és com l'empremta digital d'un fitxer, un codi de 64 caràcters. Si dos fitxers tenen el mateix hash, són idèntics. Si canvia un sol byte, el hash canvia del tot.</p>
         <p>Ordres executades:</p>
@@ -58,41 +59,31 @@
         <p>Després de realitzar el formateig d'alt nivell amb l'ordre mkfs.ext4 -E nodiscard disc.img, es torna a muntar el disc virtual per comprovar el seu contingut abans de desmuntar-lo de nou. Els fitxers han desaparegut de l'índex i el disc sembla buit, mostrant només la carpeta lost+found.</p>
         <p>Ordres executades:</p>
        
-        <img src="image_cHKf0W.png" alt="Captura del pas 3.2 on es veu el disc buit amb la carpeta lost+found">
+        <img src="Pràctica de recuperació de fitxers després d'un formateig/pas3.2.png" alt="Captura del pas 3.2 on es veu el disc buit amb la carpeta lost+found">
         
         <h2>Punt 4.3: Comprova que són idèntics</h2>
         <p>Es calcula el hash SHA-256 de tots els fitxers recuperats per photorec (dins la carpeta recup.1) i es compara amb el contingut del fitxer original.sha. Com que els codis de la foto i del PDF coincideixen exactament, es demostra byte a byte que són els mateixos fitxers originals malgrat haver canviat el seu nom.</p>
         <p>Ordres executades:</p>
-        <pre>
-        sha256sum recup.1/*
-        cat ~/practica/original.sha
-        </pre>
-        <img src="image_xLJ8Yg.png" alt="Captura del pas 4.3 verificant la coincidència exacta dels hashes originals i recuperats">
+        
+        <img src="iPràctica de recuperació de fitxers després d'un formateig/pas4.3.png" alt="Captura del pas 4.3 verificant la coincidència exacta dels hashes originals i recuperats">
         
         <h2>Punt 4.4: I el text?</h2>
         <p>Com que photorec busca capçaleres específiques de fitxer i els fitxers de text pla (.txt) no en tenen, l'eina no ha pogut recuperar automàticament el fitxer notes.txt. Malgrat això, la informació segueix present físicament al bloc de dades del disc. Es pot extreure el text llegible i cercar la paraula clau utilitzant una canonada amb grep.</p>
         <p>Ordre executada:</p>
-        <pre>
-        strings -e S disc.img | grep pizza
-        </pre>
-        <img src="image_bIF3OH.png" alt="Captura del pas 4.4 localitzant la frase secreta dins del disc virtual">
+        
+        <img src="Pràctica de recuperació de fitxers després d'un formateig/pas4.4.png" alt="Captura del pas 4.4 localitzant la frase secreta dins del disc virtual">
         
         <h2>Punt 5.2: Torna a provar de recuperar</h2>
         <p>Després d'executar un formateig de baix nivell omplint tot el disc virtual de zeros amb l'ordre dd (sobrescrivint completament els blocs de dades anteriors), es torna a passar l'eina photorec per intentar una recuperació. En llistar el directori resultant, només es troba el fitxer d'informe report.xml, confirmant que ja no es pot recuperar cap fitxer.</p>
         <p>Ordres executades:</p>
-        <pre>
-        photorec /d recup_zeros /cmd disc.img options,fileopt,everything,enable,search
-        ls recup_zeros.1
-        </pre>
-        <img src="image_kQx78G.png" alt="Captura del pas 5.2 on photorec no aconsegueix recuperar cap fitxer i només mostra report.xml">
+        
+        <img src="Pràctica de recuperació de fitxers després d'un formateig/pas5.2.png" alt="Captura del pas 5.2 on photorec no aconsegueix recuperar cap fitxer i només mostra report.xml">
         
         <h2>Punt 5.3: Busca el text</h2>
         <p>Es torna a fer la cerca de cadenes de text llegibles dins de la imatge de disc per intentar trobar la paraula clau. Aquesta vegada l'ordre no retorna absolutament res, demostrant que la frase secreta i tota la resta de dades s'han eliminat del tot i de manera irreversible a causa de la neteja amb zeros.</p>
         <p>Ordre executada:</p>
-        <pre>
-        strings -e S disc.img | grep pizza
-        </pre>
-        <img src="image_zMT2sY.png" alt="Captura del pas 5.3 on la cerca amb grep no dona cap resultat">
+      
+        <img src="Pràctica de recuperació de fitxers després d'un formateig/pas5.3.png" alt="Captura del pas 5.3 on la cerca amb grep no dona cap resultat">
 
       <h3>Particions</h3>
 
