@@ -87,7 +87,280 @@
         <img src="Pràctica de recuperació de fitxers després d'un formateig/pas5.3.png" alt="Captura del pas 5.3 on la cerca amb grep no dona cap resultat">
 
       <h3>Particions</h3>
-
+        <body class="c23 doc-content">
+        <p class="c14">
+            <span class="c5 c20">Particions</span>
+        </p>
+        <p class="c14">
+            <span class="c0">Es fa servir la comanda </span>
+            <span class="c5 c0">fdisk -l</span>
+            <span class="c3 c0">&nbsp;per llistar els dispositius d &#39;emmagatzematge connectats a la m &agrave;quina:</span>
+        </p>
+        <ul class="c8 lst-kix_i9ttbiy17j6r-0 start">
+            <li class="c19 li-bullet-0">
+                <span class="c5 c7">/dev/sda</span>
+                <span class="c0">: Disc principal de </span>
+                <span class="c0 c5">25 GiB</span>
+                <span class="c0">&nbsp;configurat amb taula de </span>
+                <span class="c0">particions</span>
+                <span class="c0">&nbsp;GPT, on resideix el sistema operatiu dividit en la partici &oacute; arrel (</span>
+                <span class="c1">/</span>
+                <span class="c0">), l &#39;arrencada (</span>
+                <span class="c1">/boot</span>
+                <span class="c0">) i l &#39;espai d &#39;usuaris (</span>
+                <span class="c1">/home</span>
+                <span class="c3 c0">).</span>
+            </li>
+        </ul>
+        <p class="c6">
+            <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 601.70px; height: 380.00px;">
+                <img alt="" src="images/image6.png" style="width: 601.70px; height: 380.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+            </span>
+        </p>
+        <ul class="c8 lst-kix_i9ttbiy17j6r-0">
+            <li class="c16 li-bullet-0">
+                <span class="c7 c5">/dev/sdb</span>
+                <span class="c0">: Segon disc de </span>
+                <span class="c5 c0">20 GiB</span>
+                <span class="c0">&nbsp;amb taula de particions MBR (</span>
+                <span class="c1">dos</span>
+                <span class="c0">). Compta amb una &uacute;nica </span>
+                <span class="c0">partici &oacute;</span>
+                <span class="c0">&nbsp;creada: </span>
+                <span class="c7 c5">/dev/sdb1</span>
+                <span class="c0">&nbsp;de </span>
+                <span class="c5 c0">9,5G</span>
+                <span class="c0">&nbsp;de mida i tipus Linux (Id 83).</span>
+            </li>
+        </ul>
+        <p class="c6">
+            <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 601.70px; height: 214.67px;">
+                <img alt="" src="images/image7.png" style="width: 601.70px; height: 214.67px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+            </span>
+        <hr style="page-break-before:always;display:none;">
+</ p>
+<p class="c10">
+    <span class="c3 c11">2. Creaci &oacute; del sistema de fitxers (Formataci &oacute;)</span>
+</p>
+<p class="c14">
+    <span class="c0">S &#39;ha donat format a la partici &oacute; </span>
+    <span class="c1">/dev/sdb1</span>
+    <span class="c0">&nbsp;amb el sistema de fitxers </span>
+    <span class="c5 c0">ext4</span>
+    <span class="c3 c0">&nbsp;utilitzant una mida de bloc personalitzada:</span>
+</p>
+<p class="c13">
+    <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 601.70px; height: 196.00px;">
+        <img alt="" src="images/image3.png" style="width: 601.70px; height: 196.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+    </span>
+</p>
+<ul class="c8 lst-kix_sg21k9zbm9mt-0 start">
+    <li class="c21 li-bullet-0">
+        <span class="c5 c0">Mida del bloc</span>
+        <span class="c0">: Configurada a </span>
+        <span class="c5 c0">2048 bytes (2k)</span>
+        <span class="c3 c0">.</span>
+    </li>
+    <li class="c21 li-bullet-0">
+        <span class="c5 c0">UUID assignat</span>
+        <span class="c0">: </span>
+        <span class="c1">1e3c13d4-7a1d-4ff8-9696-ba45fffa9c6a</span>
+        <span class="c3 c0">.</span>
+    </li>
+    <li class="c24 c27 li-bullet-0">
+        <span class="c5 c0">Verificaci &oacute;</span>
+        <span class="c0">: S &#39;executa </span>
+        <span class="c1">tune2fs -l /dev/sdb1 | grep Block</span>
+        <span class="c0">&nbsp;per comprovar que el recompte, mida i blocs per grup coincideixen amb els par &agrave;metres establerts.</span>
+    </li>
+</ul>
+<p class="c13">
+    <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 601.70px; height: 93.33px;">
+        <img alt="" src="images/image19.png" style="width: 601.70px; height: 93.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+    </span>
+</p>
+<hr style="page-break-before:always;display:none;">
+<p class="c9">
+    <span class="c3 c11"></span>
+</p>
+<p class="c22">
+    <span class="c3 c11">3. Muntatge manual i verificaci &oacute; de persist &egrave;ncia de dades</span>
+</p>
+<p class="c18">
+    <span class="c3 c0">Es realitzen operacions de muntatge temporal per comprovar la lectura i escriptura del disc:</span>
+</p>
+<ol class="c8 lst-kix_9qr8o81w37w6-0 start" start="1">
+    <li class="c24 c25 li-bullet-0">
+        <span class="c5 c0">Creaci &oacute; del punt de muntatge</span>
+        <span class="c0">: </span>
+        <span class="c0">Creem</span>
+        <span class="c0">&nbsp;el directori </span>
+        <span class="c1">/mnt/</span>
+        <span class="c1">particio1</span>
+        <span class="c3 c0">.</span>
+    </li>
+</ol>
+<p class="c15">
+    <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 369.00px; height: 159.00px;">
+        <img alt="" src="images/image13.png" style="width: 369.00px; height: 159.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+    </span>
+</p>
+<ol class="c8 lst-kix_9qr8o81w37w6-0" start="2">
+    <li class="c25 c24 li-bullet-0">
+        <span class="c5 c0">Muntatge manual</span>
+        <span class="c0">: S &#39;associa la partici &oacute; al directori mitjan &ccedil;ant </span>
+        <span class="c1">mount -t ext4 /dev/sdb1 /mnt/</span>
+        <span class="c1">particio1</span>
+        <span class="c3 c0">.</span>
+    </li>
+</ol>
+<p class="c15">
+    <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 601.70px; height: 142.67px;">
+        <img alt="" src="images/image12.png" style="width: 601.70px; height: 142.67px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+    </span>
+</p>
+<ol class="c8 lst-kix_9qr8o81w37w6-0" start="3">
+    <li class="c24 c29 li-bullet-0">
+        <span class="c5 c0">Prova d &#39;escriptura</span>
+        <span class="c0">: S &#39;accedeix al directori i es creen una carpeta (</span>
+        <span class="c1">prova</span>
+        <span class="c0">) i un fitxer buit (</span>
+        <span class="c1">prova2</span>
+        <span class="c0">). Els fitxers es llisten correctament juntament amb el directori del sistema </span>
+        <span class="c1">lost+found</span>
+        <span class="c3 c0">.</span>
+    </li>
+    <li class="c12 li-bullet-0">
+        <span class="c5 c0">Desmuntatge</span>
+        <span class="c0">: Es desmunta el volum (</span>
+        <span class="c1">umount /dev/sdb1</span>
+        <span class="c0">) i es verifica amb </span>
+        <span class="c1">ls</span>
+        <span class="c3 c0">&nbsp;que el punt de muntatge torna a estar buit, confirmant que les dades s &#39;han guardat al disc i no a la carpeta local de la m &agrave;quina.</span>
+    </li>
+</ol>
+<p class="c26">
+    <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 363.00px; height: 81.00px;">
+        <img alt="" src="images/image18.png" style="width: 363.00px; height: 81.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+    </span>
+</p>
+<ol class="c8 lst-kix_9qr8o81w37w6-0" start="5">
+    <li class="c12 li-bullet-0">
+        <span class="c5 c0">Comprovaci &oacute; de l &#39;espai</span>
+        <span class="c0">: Mitjan &ccedil;ant </span>
+        <span class="c1">df -hT</span>
+        <span class="c0">&nbsp;s &#39;observa que en estar muntat, </span>
+        <span class="c1">/dev/sdb1</span>
+        <span class="c0">&nbsp;reporta una mida de </span>
+        <span class="c5 c0">9,4G</span>
+        <span class="c0">.</span>
+    </li>
+</ol>
+<p class="c6">
+    <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 601.70px; height: 370.67px;">
+        <img alt="" src="images/image14.png" style="width: 601.70px; height: 370.67px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+    </span>
+</p>
+<p class="c22">
+    <span class="c3 c11">4. Automatitzaci &oacute; del muntatge en l &#39;arrencada</span>
+</p>
+<p class="c18">
+    <span class="c3 c0">Per evitar haver de muntar el disc manualment cada vegada que s &#39;inici &iuml; el PC, s &#39;ha editat el fitxer de configuraci &oacute; del sistema:</span>
+</p>
+<ul class="c8 lst-kix_lqcudet2701x-0 start">
+    <li class="c12 li-bullet-0">
+        <span class="c0">S &#39;obt &eacute; l &#39;identificador &uacute;nic de la partici &oacute; amb </span>
+        <span class="c1">blkid | grep sdb1</span>
+        <span class="c3 c0">.</span>
+    </li>
+</ul>
+<p class="c6">
+    <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 601.70px; height: 36.00px;">
+        <img alt="" src="images/image16.png" style="width: 601.70px; height: 36.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+    </span>
+</p>
+<ul class="c8 lst-kix_lqcudet2701x-0">
+    <li class="c12 li-bullet-0">
+        <span class="c0">S &#39;utilitza l &#39;editor </span>
+        <span class="c5 c0">GNU nano</span>
+        <span class="c0">&nbsp;per afegir la seg &uuml;ent l &iacute;nia al final del fitxer </span>
+        <span class="c7 c5">/etc/fstab</span>
+        <span class="c0">:</span>
+    </li>
+</ul>
+<p class="c6">
+    <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 601.70px; height: 206.67px;">
+        <img alt="" src="images/image10.png" style="width: 601.70px; height: 206.67px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+    </span>
+</p>
+<p class="c9">
+    <span class="c2"></span>
+</p>
+<ul class="c8 lst-kix_kgcg3ybqxvyv-0 start">
+    <li class="c18 c24 li-bullet-0">
+        <span class="c0">Finalment, es comprova mitjan &ccedil;ant </span>
+        <span class="c1">df -hT</span>
+        <span class="c0">&nbsp;i </span>
+        <span class="c1">ls</span>
+        <span class="c0">&nbsp;que el disc es munta autom &agrave;ticament de manera correcta i mant &eacute; l &#39;estructura de fitxers creada </span>
+        <span class="c0">anteriorment</span>
+        <span class="c0">.</span>
+    </li>
+</ul>
+<p class="c13">
+    <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 601.70px; height: 213.33px;">
+        <img alt="" src="images/image8.png" style="width: 601.70px; height: 213.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+    </span>
+</p>
+<p class="c9">
+    <span class="c2"></span>
+</p>
+<hr style="page-break-before:always;display:none;">
+<p class="c9">
+    <span class="c4"></span>
+</p>
+<p class="c13">
+    <span class="c20 c5">2n &ordf; Partici &oacute;</span>
+</p>
+<p class="c9">
+    <span class="c3 c0"></span>
+</p>
+<p class="c17">
+    <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 601.70px; height: 301.33px;">
+        <img alt="" src="images/image5.png" style="width: 601.70px; height: 301.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+    </span>
+    <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 601.70px; height: 256.00px;">
+        <img alt="" src="images/image9.png" style="width: 601.70px; height: 256.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+    </span>
+    <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 601.70px; height: 53.33px;">
+        <img alt="" src="images/image1.png" style="width: 601.70px; height: 53.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+    </span>
+    <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 441.00px; height: 253.00px;">
+        <img alt="" src="images/image4.png" style="width: 441.00px; height: 253.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+    </span>
+    <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 601.70px; height: 100.00px;">
+        <img alt="" src="images/image17.png" style="width: 601.70px; height: 100.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+    </span>
+    <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 601.70px; height: 246.67px;">
+        <img alt="" src="images/image11.png" style="width: 601.70px; height: 246.67px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+    </span>
+    <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 601.70px; height: 45.33px;">
+        <img alt="" src="images/image20.png" style="width: 601.70px; height: 45.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+    </span>
+    <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 601.70px; height: 198.67px;">
+        <img alt="" src="images/image15.png" style="width: 601.70px; height: 198.67px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+    </span>
+    <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 601.70px; height: 189.33px;">
+        <img alt="" src="images/image2.png" style="width: 601.70px; height: 189.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+    </span>
+</p>
+<p class="c9">
+    <span class="c3 c0"></span>
+</p>
+<p class="c9">
+    <span class="c0 c3"></span>
+</p>
+</ body>
 
 
       <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
