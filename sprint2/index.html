@@ -39,21 +39,60 @@
 
     <article class="apartat" id="apartat1">
       <h2>1. Sistemes de fitxers i particions</h2>
-      <h2>1.1. Estructura física d'un disc</h2>
-      
+        <h3>1.1. Estructura física d'un disc</h3>
+          <p>L'estructura física fa referència als components de maquinari i a com el fabricant organitza el suport magnètic o sòlid de forma nativa:</p>
+            <ul>
+                <li><strong>Disc:</strong> Dispositiu complet de maquinari (físic o virtual) que a Linux es mapeja com un fitxer de dispositiu (ex: /dev/sda o /dev/nvme0n1).</li>
+                <li><strong>Sector:</strong> És la unitat física més petita que un disc pot llegir o escriure de manera indivisible.</li>
+                <li><strong>Mida de sector:</strong> Tradicionalment és de 512 bytes, tot i que els discs moderns (Advanced Format) utilitzen sectors físics de 4096 bytes (tot i que cap a l'exterior es comporten com si fossin de 512 bytes per compatibilitat).</li>
+                <li><strong>Inalterabilitat:</strong> La mida i quantitat de sectors vénen definides de fàbrica pel maquinari i no es poden modificar per programari.</li>
+            </ul>
+
       <h2>1.2 Estructura lógica d'un disc</h2>
+          <p>L'estructura lògica és la divisió abstracte que fa el sistema operatiu sobre el disc abans de poder emmagatzemar dades:</p>
+          <ul>
+              <li><strong>Taula de particions:</strong> Índex situat al principi del disc que defineix exactament on comença i on acaba cada partició. Hi ha dos estàndards principals:
+                  <ul>
+                      <li><strong>MBR (Master Boot Record):</strong> Més antic; limita la mida del disc a 2 TiB i només permet fins a 4 particions primàries (o 3 primàries i 1 estesa amb particions lògiques a dins).</li>
+                      <li><strong>GPT (GUID Partition Table):</strong> Estàndard actual per a sistemes UEFI; pràcticament il·limitat en mida i permet fins a 128 particions independents.</li>
+                  </ul>
+              </li>
+              <li><strong>Partició:</strong> Un segment continu de sectors (del sector X al sector Y) que el sistema tracta de forma independent (ex: /dev/sdb1) per separar dades o sistemes operatius.</li>
+          </ul>
       
       <h2>1.3. Estructrua de la informació</h2>
-      
+          <p>Defineix la unitat d'organització que utilitza el sistema operatiu per gestionar l'espai i evitar el desordre:</p>
+          <ul>
+              <li><strong>Bloc (o Clúster a Windows):</strong> És la unitat lògica de treball del sistema de fitxers, formada per un grup de sectors físics consecutius.</li>
+              <li><strong>Mida de bloc:</strong> A sistemes com ext4, la mida es tria en formatar (típicament 1024, 2048 o 4096 bytes).</li>
+              <li><strong>Fragmentació interna:</strong> Un fitxer sempre ocupa blocs sencers. Si un fitxer ocupa 100 bytes i el bloc és de 4096 bytes, es perden 3996 bytes de fragmentació interna dins d'aquell bloc.</li>
+              <li><strong>Fragmentació externa:</strong> Els blocs d'un mateix fitxer queden escampats de forma no consecutiva pel disc, alentint-ne la lectura.</li>
+          </ul>
+    
       <h2>1.4. Sistemes de fitxers</h2>
+        <p>És l'estructura i el conjunt de regles que s'apliquen a una partició buida per organitzar la informació en fitxers i carpetes:</p>
+          <ul>
+              <li><strong>Metadades de control:</strong> A més de les dades de l'usuari, el sistema de fitxers organitza i emmagatzema:
+                  <ul>
+                      <li>L'arbre de carpetes i els noms dels fitxers.</li>
+                      <li>Els inodes (a ext4), que guarden la mida, propietari, permisos i dates de cada fitxer.</li>
+                      <li>El mapa de blocs lliures i ocupats.</li>
+                      <li>El diari (journaling): Registre per evitar la corrupció de dades en cas d'un tall sobtat de corrent.</li>
+                  </ul>
+              </li>
+              <li><strong>Tipus comuns de sistemes de fitxers:</strong>
+                  <ul>
+                      <li><strong>ext4:</strong> El sistema per defecte a Linux (suporta permisos de Linux i diari).</li>
+                      <li><strong>NTFS:</strong> Propietari de Windows, llegible i escriptible per Linux però sense conservar permisos natius d'aquest darrer.</li>
+                      <li><strong>FAT32:</strong> Compatible amb gairebé tot (USB), limitat a fitxers de màxim 4 GiB.</li>
+                      <li><strong>Swap:</strong> Àrea d'intercanvi de memòria que no conté un arbre de fitxers directament accessible, sinó que actua com a extensió de la memòria RAM.</li>
+                  </ul>
+              </li>
+              <li><strong>Punt de muntatge:</strong> Carpeta del sistema on s'enllaça l'estructura del sistema de fitxers de la partició per fer-la accessible (Linux no fa servir lletres de la C: a la Z:).</li>
+          </ul>
       
-      <h2>1.5. Tipus de formateig</h2>
-      <h4><p>Pràctica de recuperació de fitxers després d'un formateig</p></h4>
-      <p>En aquesta pràctica comprovarem que formatar un disc no vol dir esborrar els fitxers. Desarem una foto, un PDF i un text en un disc, el formatarem i després els recuperarem. Al final esborrarem el disc de veritat i veureurem que ja no es pot recuperar res. No tocarem el disc del nostre ordinador. Treballarem amb un disc virtual, un fitxer que fa de disc. Si ens equivoquem, el podem esborrar i tornar a començar</p>
-      <h3>Punt 2.4: Desa l'empremta digital dels originals</h3>
-        <p>Un hash és com l'empremta digital d'un fitxer, un codi de 64 caràcters. Si dos fitxers tenen el mateix hash, són idèntics. Si canvia un sol byte, el hash canvia del tot.</p>
-        <p>Ordres executades:</p>
-        
+        <h2>1.5. Tipus de formateig</h2>
+
         <img src="Pràctica de recuperació de fitxers després d'un formateig/pas2.4.png" alt="Captura del pas 2.4 guardant i verificant els hashes originals">
         
         <h3>Punt 3.2: Mira què hi ha ara al disc</h3>
