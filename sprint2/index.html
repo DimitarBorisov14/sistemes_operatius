@@ -195,7 +195,7 @@
       <h2>2. Gestió de processos</h2>
       <h3>La Missió</h3>
       <!-- NIVELL 0 -->
-    <h2>Nivell 0: Preparació del lloc de treball i creació de scripts</h2>
+    <h3>Nivell 0: Preparació del lloc de treball i creació de scripts</h3>
     <p>En aquesta fase inicial es prepara l'entorn de directoris i es creen els fitxers de script necessaris per a la pràctica.</p>
 
     <ul>
@@ -233,7 +233,7 @@ while true; do; done</code></pre>
     </ul>
        <img src="Pràctica Gestio de Processos/image8.png" alt="Captura de pantalla - Nivell 2">
     <!-- NIVELL 1 -->
-    <h2>Nivell 1: Visualització de l'arbre de processos</h2>
+    <h3>Nivell 1: Visualització de l'arbre de processos</h3>
     <p>S'analitza l'estructura dels processos actius associats a l'usuari actual.</p>
 
     <ul>
@@ -249,7 +249,7 @@ while true; do; done</code></pre>
        <img src="Pràctica Gestio de Processos/image7.png" alt="Captura de pantalla - Nivell 2">
        <img src="Pràctica Gestio de Processos/image5.png" alt="Captura de pantalla - Nivell 2">
     <!-- NIVELL 2 -->
-    <h2>Nivell 2: Monitorització del consum de la CPU</h2>
+    <h3>Nivell 2: Monitorització del consum de la CPU</h3>
     <p>Es verifica l'impacte dels processos actius en el rendiment general del sistema.</p>
 
     <ul>
@@ -261,9 +261,8 @@ while true; do; done</code></pre>
     </ul>
 
     <!-- NIVELL 3 -->
-    <h2>Nivell 3: Cerca i filtrat de processos específics</h2>
+    <h3>Nivell 3: Cerca i filtrat de processos específics</h3>
     <p>Es detallen comandaments alternatius per llistar i auditar els processos llançats.</p>
-        <img src="Pràctica Gestio de Processos/image4.png" alt="Captura de pantalla - Nivell 3">
    
     <h3>Filtrat amb <code>pgrep</code></h3>
     <ul>
@@ -276,11 +275,11 @@ while true; do; done</code></pre>
         <li>S'identifica que el procés pare (PPID) de tots ells és el <strong><code>1593</code> (corresponent a <code>systemd</code>)</strong>.</li>
         <li>Els minadors estan en estat <code>R</code> (executant-se), mentre que l'espia i els backups estan en estat <code>S</code> (dormint/esperant).</li>
     </ul>
+              <img src="Pràctica Gestio de Processos/image4.png" alt="Captura de pantalla - Nivell 3">
 
     <!-- NIVELL 4 -->
-    <h2>Nivell 4: Control de treballs en primer i segon pla (Jobs)</h2>
+    <h3>Nivell 4: Control de treballs en primer i segon pla (Jobs)</h3>
     <p>Es posa en pràctica la gestió de processos de la shell mitjançant senyals de control d'estat.</p>
-        <img src="Pràctica Gestio de Processos/imagel.png" alt="Captura de pantalla - Nivell 4">
 
     <ul>
         <li>S'executa el script en primer pla mitjançant <code>./descarrega.sh</code>.</li>
@@ -291,21 +290,21 @@ while true; do; done</code></pre>
         <li>Mitjançant <code>jobs</code> es confirma que es troba en estat <code>Ejecutando</code> de fons.</li>
         <li>Es monitoritza la descàrrega consultant el fitxer amb <code>Cada 1,0s: cat progres.txt</code>, on s'observa la descàrrega en curs del fitxer <code>ubuntu.iso</code>.</li>
     </ul>
+        <img src="Pràctica Gestio de Processos/image1.png" alt="Captura de pantalla - Nivell 4">
 
     <!-- NIVELL 5 -->
-    <h2>Nivell 5: Rendiment del sistema en segon pla</h2>
+    <h3>Nivell 5: Rendiment del sistema en segon pla</h3>
     <p>Es torna a analitzar el comportament global mentre la tasca de descàrrega opera en segon pla.</p>
-        <img src="Pràctica Gestio de Processos/image12.png" alt="Captura de pantalla - Nivell 5">
       
     <ul>
         <li>L'eina <code>top</code> mostra que el consum total del processador s'ha equilibrat (aproximadament un 51,9% per a l'usuari i la resta lliure o per a altres tasques).</li>
         <li>La comanda <code>cat progres.txt</code> confirma finalment que el procés de descàrrega ha finalitzat amb èxit: <code>ubuntu.iso COMPLETADA en 117 s</code>.</li>
     </ul>
+        <img src="Pràctica Gestio de Processos/image12.png" alt="Captura de pantalla - Nivell 5">
 
     <!-- NIVELL 6 -->
-    <h2>Nivell 6: Finalització controlada de processos (Signals)</h2>
+    <h3>Nivell 6: Finalització controlada de processos (Signals)</h3>
     <p>S'avalua com respondre davant processos que ignoren els intents de tancament estàndard.</p>
-        <img src="Pràctica Gestio de Processos/image11.png" alt="Captura de pantalla - Nivell 6">
 
     <h3>1. Matar el procés <code>espia</code></h3>
     <ul>
@@ -321,22 +320,22 @@ while true; do; done</code></pre>
         <li>Es pausen temporalment enviant el senyal de stop: <code>kill -STOP 15520 15608 27064 28863</code>. Al llistat de <code>ps</code> el seu estat canvia a <strong><code>T</code></strong> (detingut).</li>
         <li>Es tornen a activar enviant el senyal de continuació: <code>kill -CONT 15520 15608 27064 28863</code>. El seu estat canvia un altre cop a <strong><code>S</code></strong> (en espera).</li>
     </ul>
+        <img src="Pràctica Gestio de Processos/image11.png" alt="Captura de pantalla - Nivell 6">
 
     <!-- NIVELL 7 -->
-    <h2>Nivell 7: Traçabilitat del procés pare (Anatomia del procés)</h2>
+    <h3>Nivell 7: Traçabilitat del procés pare (Anatomia del procés)</h3>
     <p>Es determina d'on penja el procés de descàrrega quan s'executa de forma independent al sistema.</p>
-        <img src="Pràctica Gestio de Processos/image2.png" alt="Captura de pantalla - Nivell 7">
   
     <ul>
         <li>S'utilitza l'ordre <code>pstree -ps $(pgrep descarrega)</code> per demanar l'arbre genealògic lineal del procés de descàrrega.</li>
         <li>Es confirma que el procés de descàrrega (PID 31636) depèn de l'estructura jeràrquica: <strong><code>systemd(1) -> systemd(1593) -> descarrega.sh(31636)</code></strong>, on es comprova la dependència del gestor d'inici principal i de la sessió de l'entorn gràfic de l'usuari.</li>
     </ul>
-
-
-
+        <img src="Pràctica Gestio de Processos/image2.png" alt="Captura de pantalla - Nivell 7">
       
       <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
           <article class="apartat" id="apartat3">
+      
+            
       <h2>3. Còpies de seguretat i automatització de tasques</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
          tempor incididunt ut labore et dolore magna aliqua. El gestor de
