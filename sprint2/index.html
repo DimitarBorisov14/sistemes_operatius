@@ -126,98 +126,54 @@
         <img src="Pràctica de recuperació de fitxers després d'un formateig/pas5.3.png" alt="Captura del pas 5.3 on la cerca amb grep no dona cap resultat">
 
       <h2>1.6. Particions</h2>
-        <h1>Memòria de la Pràctica: Configuració i Muntatge de Particions en Linux</h1>
+         <h1>Documentació de l'Exercici de Particions</h1>
 
-    <h2>1. Estat Inicial dels Dispositius d'Emmagatzematge</h2>
-    <p>Mitjançant la comanda <code>fdisk -l</code> s'han llistat els discs i dispositius connectats a la màquina:</p>
+    <h2>1. Identificació dels dispositius d'emmagatzematge</h2>
+    <p>Es fa servir la comanda fdisk -l per llistar els dispositius d'emmagatzematge connectats a la màquina:</p>
     <ul>
-        <li><strong><code>/dev/sda</code> (Disc principal de 25 GiB):</strong>
-            <ul>
-                <li>Configurat amb una taula de particions <strong>GPT</strong>.</li>
-                <li>Conté el sistema operatiu dividit en la partició arrel (<code>/</code>), l'arrencada (<code>/boot</code>) i l'espai d'usuaris (<code>/home</code>).</li>
-            </ul>
-        </li>
-        <li><strong><code>/dev/sdb</code> (Segon disc de 20 GiB):</strong>
-            <ul>
-                <li>Configurat amb una taula de particions <strong>MBR (dos)</strong>.</li>
-                <li><strong>Partició inicial (<code>/dev/sdb1</code>):</strong> Té una mida de <strong>9,5G</strong> i tipus Linux (Id 83).</li>
-            </ul>
-        </li>
+        <li>/dev/sda: Disc principal de 25 GiB configurat amb taula de particions GPT, on resideix el sistema operatiu dividit en la partició arrel (/), l'arrencada (/boot) i l'espai d'usuaris (/home).</li>
+        <li>/dev/sdb: Segon disc de 20 GiB amb taula de particions MBR (dos). Compta amb una única partició creada: /dev/sdb1 de 9,5G de mida i tipus Linux (Id 83).</li>
     </ul>
+    <p>[Imatge: Sortida de la comanda fdisk -l amb els discs /dev/sda, /dev/sdb i la partició /dev/sdb1]</p>
 
-    <h2>2. Configuració de la Partició (<code>/dev/sdb1</code>)</h2>
-    
-    <h3>Creació del Sistema de Fitxers (Formatació)</h3>
-    <p>S'ha donat format ext4 a la partició utilitzant paràmetres personalitzats:</p>
+    <h2>2. Creació del sistema de fitxers (Formatació)</h2>
+    <p>S'ha donat format a la partició /dev/sdb1 amb el sistema de fitxers ext4 utilitzant una mida de bloc personalitzada:</p>
     <ul>
-        <li><strong>Comanda utilitzada:</strong> <code>mkfs.ext4 -b 2048 /dev/sdb1</code></li>
-        <li><strong>Mida del bloc:</strong> Configurada a <strong>2048 bytes (2k)</strong>.</li>
-        <li><strong>UUID assignat:</strong> <code>1e3c13d4-7a1d-4ff8-9696-ba45fffa9c6a</code>.</li>
+        <li>Mida del bloc: Configurada a 2048 bytes (2k).</li>
+        <li>UUID assignat: 1e3c13d4-7a1d-4ff8-9696-ba45fffa9c6a.</li>
+        <li>Verificació: S'executa tune2fs -l /dev/sdb1 | grep Block per comprovar que el recompte, mida i blocs per grup coincideixen amb els paràmetres establerts.</li>
     </ul>
-    <p>Es va verificar la correcta creació executant la comanda <code>tune2fs -l /dev/sdb1 | grep Block</code>, confirmant que la mida del bloc (<code>Block size</code>) és efectivament 2048.</p>
+    <p>[Imatge: Procés de formatació de la partició /dev/sdb1]</p>
+    <p>[Imatge: Execució i resultat de tune2fs -l /dev/sdb1 | grep Block]</p>
 
-    <h3>Muntatge Manual i Proves de Persistència</h3>
-    <p>Es van seguir els següents passos per validar el funcionament de la partició:</p>
-    <ol>
-        <li><strong>Creació del punt de muntatge:</strong> Es crea el directori <code>/mnt/particio1</code>.</li>
-        <li><strong>Muntatge temporal:</strong> S'associa el volum amb <code>mount -t ext4 /dev/sdb1 /mnt/particio1</code>.</li>
-        <li><strong>Proves d'escriptura:</strong> S'accedeix al directori i es creen una carpeta (<code>prova</code>) i un fitxer buit (<code>prova2</code>). El llistat mostra correctament aquests elements al costat de la carpeta del sistema <code>lost+found</code>.</li>
-        <li><strong>Desmuntatge:</strong> Es desmunta el volum amb <code>umount /dev/sdb1</code> i es comprova que la carpeta <code>/mnt/particio1</code> torna a estar buida, confirmant que les dades resideixen al disc.</li>
-    </ol>
-
-    <h2>3. Configuració de la 2a Partició (<code>/dev/sdb2</code>)</h2>
-    
-    <h3>Creació de la Partició i Formatació</h3>
-    <p>S'ha entrat a la utilitat <code>fdisk /dev/sdb</code> per afegir una nova partició primària amb l'espai restant del disc:</p>
+    <h2>3. Muntatge manual i verificació de persistència de dades</h2>
+    <p>Es realitzen operacions de muntatge temporal per comprovar la lectura i escriptura del disc:</p>
     <ul>
-        <li><strong>Identificador:</strong> <code>/dev/sdb2</code></li>
-        <li><strong>Mida:</strong> <strong>10,5 GiB</strong></li>
-        <li><strong>Tipus:</strong> Linux (Id 83)</li>
-        <li><strong>Formatació (NTFS):</strong> S'ha donat format NTFS mitjançant la comanda <code>mkfs.ntfs -Q -c 8192 /dev/sdb2</code>, definint una mida de clúster personalitzada d'<strong>8192 bytes</strong>.</li>
+        <li>Creació del punt de muntatge: Creem el directori /mnt/particio1.</li>
+        <li>Muntatge manual: S'associa la partició al directori mitjançant mount -t ext4 /dev/sdb1 /mnt/particio1.</li>
+        <li>Prova d'escriptura: S'accedeix al directori i es creen una carpeta (prova) i un fitxer buit (prova2). Els fitxers es llisten correctament juntament amb el directori del sistema lost+found.</li>
+        <li>Desmuntatge: Es desmunta el volum (umount /dev/sdb1) i es verifica amb ls que el punt de muntatge torna a estar buit, confirmant que les dades s'han guardat al disc i no a la carpeta local de la màquina.</li>
+        <li>Comprovació de l'espai: Mitjançant df -hT s'observa que en estar muntat, /dev/sdb1 reporta una mida de 9,4G.</li>
     </ul>
-    <p>Mitjançant la comanda <code>ntfsinfo -m /dev/sdb2</code> es va validar que el <em>Cluster Size</em> és de 8192. Posteriorment, es va crear el directori <code>/mnt/particio2</code> i es va muntar manualment utilitzant el tipus de fitxers de fuseblk/ntfs.</p>
+    <p>[Imatge: Creació del directori i muntatge manual de la partició]</p>
+    <p>[Imatge: Llistat de fitxers dins de /mnt/particio1 amb prova, prova2 i lost+found]</p>
+    <p>[Imatge: Desmuntatge del volum i comprovació de la carpeta buida]</p>
+    <p>[Imatge: Sortida de la comanda df -hT per a /dev/sdb1]</p>
 
-    <h2>4. Automatització del Muntatge en l'Arrencada (<code>/etc/fstab</code>)</h2>
-    <p>Per garantir que ambdós volums es munti automàticament en iniciar el sistema, s'ha obtingut l'identificador落下 únic de cada partició amb la comanda <code>blkid</code> i s'ha editat el fitxer de configuració del sistema <code>/etc/fstab</code>.</p>
+    <h2>4. Automatització del muntatge en l'arrencada</h2>
+    <p>Per evitar haver de muntar el disc manualment cada vegada que s'iniciï el PC, s'ha editat el fitxer de configuració del sistema:</p>
+    <ul>
+        <li>S'obté l'identificador落下 únic de la partició amb blkid | grep sdb1.</li>
+        <li>S'utilitza l'editor GNU nano per afegir la línia de configuració corresponent al final del fitxer /etc/fstab.</li>
+        <li>Finalment, es comprova mitjançant df -hT i ls que el disc es munta automàticament de manera correcta i manté l'estructura de fitxers creada anteriorment.</li>
+    </ul>
+    <p>[Imatge: Execució de blkid per al UUID de /dev/sdb1]</p>
+    <p>[Imatge: Fitxer /etc/fstab obert amb nano amb la línia afegida]</p>
+    <p>[Imatge: Verificació amb df -hT i ls després de reiniciar la màquina]</p>
 
-    <h3>Resum dels Dispositius i Configuració fstab</h3>
-    <p>La següent taula recull la configuració final afegida al final del fitxer <code>/etc/fstab</code> per a les dues noves particions:</p>
-
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Dispositiu</th>
-                <th>UUID</th>
-                <th>Punt de Muntatge</th>
-                <th>Tipus (Type)</th>
-                <th>Opcions (Options)</th>
-                <th>Dump</th>
-                <th>Pass</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><code>/dev/sdb1</code></td>
-                <td><code>1e3c13d4-7a1d-4ff8-9696-ba45fffa9c6a</code></td>
-                <td><code>/mnt/particio1</code></td>
-                <td><code>ext4</code></td>
-                <td><code>defaults</code></td>
-                <td>0</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td><code>/dev/sdb2</code></td>
-                <td><code>1A0609DB7F27A123</code></td>
-                <td><code>/mnt/particio2</code></td>
-                <td><code>ntfs</code></td>
-                <td><code>defaults</code></td>
-                <td>0</td>
-                <td>0</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <p>Es comprova el correcte muntatge automàtic un cop reiniciat el sistema mitjançant la comanda <code>df -hT</code>, on s'observen ambdues particions correctament associades als seus respectius directoris de destinació de manera persistent.</p>
+    <h2>5. 2nª Partició</h2>
+    <p>[Espai reservat per a la documentació del següent exercici o bloc de particions]</p>
+    <p>[Imatge: Pendent de definir per a la segona partició]</p>
 
 
       <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
