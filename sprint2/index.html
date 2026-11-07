@@ -194,6 +194,144 @@
     <article class="apartat" id="apartat2">
       <h2>2. Gestió de processos</h2>
       <h3>La Missió</h3>
+      <!-- NIVELL 0 -->
+    <h2>Nivell 0: Preparació del lloc de treball i creació de scripts</h2>
+    <p>En aquesta fase inicial es prepara l'entorn de directoris i es creen els fitxers de script necessaris per a la pràctica.</p>
+
+    <ul>
+        <li><strong>Creació i accés al directori de treball:</strong>
+            <ul>
+                <li>Es crea la carpeta <code>missio</code> al directori personal de l'usuari: <code>mkdir ~/missio</code>.</li>
+                <li>S'accedeix al directori: <code>cd ~/missio/</code>.</li>
+                <li>Es verifica la ruta absoluta actual com a <code>/home/dimitar/missio</code> mitjançant l'ordre <code>pwd</code>.</li>
+            </ul>
+        </li>
+        <li><strong>Creació del script <code>minador</code>:</strong>
+            <ul>
+                <li>S'utilitza l'editor de text <code>nano minador</code> per introduir el codi d'un bucle infinit que consumeix recursos de CPU:
+<pre><code>#!/bin/bash
+# Gasta CPU sense parar
+while true; do; done</code></pre>
+                </li>
+                <li>En intentar executar-lo inicialment mitjançant <code>./minador</code>, el sistema denega l'operació (<code>Permiso denegado</code>).</li>
+                <li>S'assignen els permisos d'execució amb <code>chmod +x minador</code>.</li>
+            </ul>
+        </li>
+        <li><strong>Creació de la resta de scripts de la pràctica:</strong>
+            <ul>
+                <li>Es generen els fitxers de configuració amb <code>nano</code> per als scripts: <code>backup_nocturn</code>, <code>espia</code>, <code>descarrega.sh</code> i <code>sospitosos.sh</code>.</li>
+                <li>S'atorguen permisos d'execució de forma massiva amb <code>chmod +x backup_nocturn espia descarrega.sh sospitosos.sh</code>.</li>
+            </ul>
+        </li>
+        <li><strong>Execució i correcció de <code>sospitosos.sh</code>:</strong>
+            <ul>
+                <li>En llançar <code>./sospitosos.sh</code>, es detecta un error a la línia 7 (<code>No existe el archivo o el directorio</code>) perquè el script busca <code>./expia</code> en comptes de <code>./espia</code>.</li>
+                <li>S'edita amb <code>nano sospitosos.sh</code> per corregir el text erroni.</li>
+                <li>Es torna a executar i mostra correctament el missatge: <em>"Fet. El servidor comença a anar lent..."</em>.</li>
+            </ul>
+        </li>
+    </ul>
+       <img src="Pràctica Gestio de Processos/image8.png" alt="Captura de pantalla - Nivell 2">
+    <!-- NIVELL 1 -->
+    <h2>Nivell 1: Visualització de l'arbre de processos</h2>
+    <p>S'analitza l'estructura dels processos actius associats a l'usuari actual.</p>
+
+    <ul>
+        <li>S'utilitza l'ordre <code>pstree -p $USER</code> per veure la jerarquia de processos amb els seus identificadors (PID).</li>
+        <li>S'observa que sota el gestor de serveis d'usuari <code>systemd (1593)</code> s'estan executant de fons les instàncies dels scripts llançats:
+            <ul>
+                <li>Múltiples instàncies de <code>minador</code> (PIDs: 15518, 15519, 15606, 15607).</li>
+                <li>Dues instàncies de <code>backup_nocturn</code> (PIDs: 15520, 15608).</li>
+                <li>Una instància de <code>espia</code> (PID: 15609).</li>
+            </ul>
+        </li>
+    </ul>
+       <img src="Pràctica Gestio de Processos/image7.png" alt="Captura de pantalla - Nivell 2">
+       <img src="Pràctica Gestio de Processos/image5.png" alt="Captura de pantalla - Nivell 2">
+    <!-- NIVELL 2 -->
+    <h2>Nivell 2: Monitorització del consum de la CPU</h2>
+    <p>Es verifica l'impacte dels processos actius en el rendiment general del sistema.</p>
+
+    <ul>
+        <li>Es llança l'eina de monitorització en temps real <code>top</code>.</li>
+        <li>Es detecta que la <strong>CPU està al 100% de capacitat</strong> (<code>%Cpu0 : 100,0 us</code>).</li>
+             <img src="Pràctica Gestio de Processos/image3.png" alt="Captura de pantalla - Nivell 2">
+        <li>Les quatre instàncies del script <code>minador</code> es troben en estat d'execució activa (<code>R</code>) i estan consumint cadascuna aproximadament un <strong>25% de la CPU</strong>, acaparant la totalitat dels recursos disponibles del nucli.</li>
+           <img src="Pràctica Gestio de Processos/image6.png" alt="Captura de pantalla - Nivell 2">
+    </ul>
+
+    <!-- NIVELL 3 -->
+    <h2>Nivell 3: Cerca i filtrat de processos específics</h2>
+    <p>Es detallen comandaments alternatius per llistar i auditar els processos llançats.</p>
+        <img src="Pràctica Gestio de Processos/image4.png" alt="Captura de pantalla - Nivell 3">
+   
+    <h3>Filtrat amb <code>pgrep</code></h3>
+    <ul>
+        <li>Es fa servir <code>pgrep -l 'minador|espia|backup'</code> per trobar ràpidament els identificadors numèrics.</li>
+    </ul>
+
+    <h3>Inspecció avançada amb <code>ps</code></h3>
+    <ul>
+        <li>S'executa <code>ps -o pid,ppid,user,stat,etime,%cpu,comm -C minador,espia,backup_nocturn</code> per veure les columnes personalitzades.</li>
+        <li>S'identifica que el procés pare (PPID) de tots ells és el <strong><code>1593</code> (corresponent a <code>systemd</code>)</strong>.</li>
+        <li>Els minadors estan en estat <code>R</code> (executant-se), mentre que l'espia i els backups estan en estat <code>S</code> (dormint/esperant).</li>
+    </ul>
+
+    <!-- NIVELL 4 -->
+    <h2>Nivell 4: Control de treballs en primer i segon pla (Jobs)</h2>
+    <p>Es posa en pràctica la gestió de processos de la shell mitjançant senyals de control d'estat.</p>
+        <img src="Pràctica Gestio de Processos/imagel.png" alt="Captura de pantalla - Nivell 4">
+
+    <ul>
+        <li>S'executa el script en primer pla mitjançant <code>./descarrega.sh</code>.</li>
+        <li>S'atura l'execució enviant el senyal de suspensió amb la combinació de tecles <strong><code>Ctrl + Z</code></strong>, deixant el procés com a <code>Detenido</code>.</li>
+        <li>Es llista l'estat amb <code>jobs -l</code>, mostrant el treball parat amb el seu PID 21853.</li>
+        <li>Es reprèn el treball en segon pla (background) amb l'ordre <strong><code>bg %1</code></strong>, passant a executar-se de fons (<code>./descarrega.sh &</code>).</li>
+        <li>Es torna a portar a primer pla amb <strong><code>fg %1</code></strong>, es suspèn amb <code>Ctrl + Z</code> de nou per fer proves, i finalment es reenvia de fons amb <code>bg %1</code>.</li>
+        <li>Mitjançant <code>jobs</code> es confirma que es troba en estat <code>Ejecutando</code> de fons.</li>
+        <li>Es monitoritza la descàrrega consultant el fitxer amb <code>Cada 1,0s: cat progres.txt</code>, on s'observa la descàrrega en curs del fitxer <code>ubuntu.iso</code>.</li>
+    </ul>
+
+    <!-- NIVELL 5 -->
+    <h2>Nivell 5: Rendiment del sistema en segon pla</h2>
+    <p>Es torna a analitzar el comportament global mentre la tasca de descàrrega opera en segon pla.</p>
+        <img src="Pràctica Gestio de Processos/image12.png" alt="Captura de pantalla - Nivell 5">
+      
+    <ul>
+        <li>L'eina <code>top</code> mostra que el consum total del processador s'ha equilibrat (aproximadament un 51,9% per a l'usuari i la resta lliure o per a altres tasques).</li>
+        <li>La comanda <code>cat progres.txt</code> confirma finalment que el procés de descàrrega ha finalitzat amb èxit: <code>ubuntu.iso COMPLETADA en 117 s</code>.</li>
+    </ul>
+
+    <!-- NIVELL 6 -->
+    <h2>Nivell 6: Finalització controlada de processos (Signals)</h2>
+    <p>S'avalua com respondre davant processos que ignoren els intents de tancament estàndard.</p>
+        <img src="Pràctica Gestio de Processos/image11.png" alt="Captura de pantalla - Nivell 6">
+
+    <h3>1. Matar el procés <code>espia</code></h3>
+    <ul>
+        <li>Es localitzen els PIDs de l'espia amb <code>pgrep -l espia</code> (retorna 15609 i 28864).</li>
+        <li>S'intenta tancar de forma estàndard amb un senyal SIGTERM mitjançant <code>kill 15609 28864</code>.</li>
+        <li>El script captura el senyal, el rebutja i respon a la terminal: <code>[espia] SIGTERM= Ni parlar-ne!</code>.</li>
+        <li>Es força l'eliminació definitiva del procés mitjançant el senyal <strong>SIGKILL (-9)</strong> amb l'ordre <code>kill -9 15609 28864</code>. Es verifica posteriorment que ja no apareix actiu a <code>pgrep</code>.</li>
+    </ul>
+
+    <h3>2. Aturada i represa temporal dels processos <code>backup</code></h3>
+    <ul>
+        <li>Es comproven els processos de còpia de seguretat actius.</li>
+        <li>Es pausen temporalment enviant el senyal de stop: <code>kill -STOP 15520 15608 27064 28863</code>. Al llistat de <code>ps</code> el seu estat canvia a <strong><code>T</code></strong> (detingut).</li>
+        <li>Es tornen a activar enviant el senyal de continuació: <code>kill -CONT 15520 15608 27064 28863</code>. El seu estat canvia un altre cop a <strong><code>S</code></strong> (en espera).</li>
+    </ul>
+
+    <!-- NIVELL 7 -->
+    <h2>Nivell 7: Traçabilitat del procés pare (Anatomia del procés)</h2>
+    <p>Es determina d'on penja el procés de descàrrega quan s'executa de forma independent al sistema.</p>
+        <img src="Pràctica Gestio de Processos/image2.png" alt="Captura de pantalla - Nivell 7">
+  
+    <ul>
+        <li>S'utilitza l'ordre <code>pstree -ps $(pgrep descarrega)</code> per demanar l'arbre genealògic lineal del procés de descàrrega.</li>
+        <li>Es confirma que el procés de descàrrega (PID 31636) depèn de l'estructura jeràrquica: <strong><code>systemd(1) -> systemd(1593) -> descarrega.sh(31636)</code></strong>, on es comprova la dependència del gestor d'inici principal i de la sessió de l'entorn gràfic de l'usuari.</li>
+    </ul>
+
 
 
       
