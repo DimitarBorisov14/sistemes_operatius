@@ -355,141 +355,80 @@ while true; do; done</code></pre>
       <h2>4. Gestio d'usuaris i grups i permisos</h2>
       <h3>4.1. La missió · PixelForge Part1</h3>
 
-      <h2>Nivell 0 i Repte 0: Exploració Inicial del Sistema</h2>
-        <p>L'objectiu inicial és identificar l'usuari actual, conèixer els seus privilegis i analitzar la configuració d'usuaris existents al sistema.</p>
-        <ul>
-            <li><strong>Identificació de l'usuari:</strong> Es va comprovar la identitat amb <code>whoami</code> i <code>id</code>, confirmant que l'usuari actual és <code>dimitar</code> (UID 1000) i que pertany al grup d'administradors <code>sudo</code>.</li>
-            <li><strong>Lectura de fitxers de configuració:</strong>
-                <ul>
-                    <li>S'examina la línia de l'usuari a <code>/etc/passwd</code> mitjançant <code>grep $USER /etc/passwd</code>.</li>
-                    <li>S'intenta llegir <code>/etc/shadow</code> sense privilegis, donant error de permís denegat.</li>
-                    <li>S'utilitza <code>sudo grep $USER /etc/shadow</code> per extreure el <em>hash</em> de la contrasenya de l'usuari de forma segura.</li>
-                </ul>
-            </li>
-            <li><strong>Comprovació de grups i plantilles:</strong>
-                <ul>
-                    <li>S'identifiquen els membres del grup <code>sudo</code> amb <code>getent group sudo</code>.</li>
-                    <li>S'inspecciona el directori <code>/etc/skel</code> (on hi ha els fitxers de configuració base per a nous usuaris) mitjançant <code>ls -a /etc/skel</code>.</li>
-                    <li>Es comprova la configuració de l'usuari <code>root</code>.</li>
-                </ul>
-            </li>
-        </ul>
-
-        <img src="Practica Gestio Usuaris Part 1/image02.png">
-        <img src="Practica Gestio Usuaris Part 1/image03.png">
-        <img src="Practica Gestio Usuaris Part 1/image04.png">
-
-        <h2>Nivell 1 i Repte 1: Gestió i Creació d'Usuaris</h2>
-        <p>En aquesta fase es creen els usuaris que formaran part del sistema mitjançant la línia de comandes i la interfície gràfica.</p>
-        <ul>
-            <li><strong>Usuari <code>nuria</code>:</strong> Creat inicialment amb <code>useradd</code> (sense directori personal i amb <em>shell</em> <code>/bin/sh</code>). Posteriorment s'elimina amb <code>userdel</code> per tornar-lo a crear correctament amb <code>useradd -m -s /bin/bash -c "Nuria Vidal"</code>. S'estableix la seva contrasenya lidiant amb les restriccions del diccionari de seguretat del sistema.</li>
-            <li><strong>Usuari <code>pau</code>:</strong> Creat mitjançant la comanda interactiva <code>adduser pau</code>, omplint els detalls de l'usuari (nom complet, telèfons, etc.).</li>
-            <li><strong>Usuari <code>marcc</code> (Marc Soler):</strong> Creat amb <code>useradd -m -s /bin/bash -c "Marc Solerr"</code>.</li>
-            <li><strong>Usuari <code>laia</code>:</strong> Creat a través de la interfície gràfica (GUI) de configuració d'usuaris de GNOME.</li>
-            <li><strong>Usuari <code>sara</code>:</strong> Creat al Repte 1 utilitzant <code>sudo useradd -m -s /bin/bash -c "Sara Ruiz" sara</code>.</li>
-        </ul>
-        <p>Es verifica la correcta inserció de tots ells mitjançant <code>getent passwd</code>.</p>
-
-        <img src="Practica Gestio Usuaris Part 1/image05.png">
-
-        <h2>Nivell 2 i Repte 2: Canvi d'Identitat i Creació de Fitxers</h2>
-        <p>Es comprova l'accés dels usuaris als seus respectius directoris personals i la creació de fitxers propis.</p>
-        <ul>
-            <li><strong>Comprovació de <code>nuria</code>:</strong> S'inicia sessió com a <code>nuria</code> mitjançant <code>su nuria</code>. Es valida el seu directori de treball (<code>/home/nuria</code>) i es crea el fitxer <code>primer_dia.txt</code> amb la comanda <code>touch</code>.</li>
-            <li><strong>Comprovació de <code>pau</code>:</strong> S'accedeix com a <code>pau</code> i es llisten els directoris per defecte creats a la seva carpeta <em>home</em>.</li>
-            <li><strong>Repte 2 (<code>sara</code>):</strong> S'inicia sessió com a <code>sara</code> (<code>su sara</code>), es crea un fitxer d'àudio de prova anomenat <code>so_intro.wav</code> i es llisten els seus permisos amb <code>ls -l</code>.</li>
-        </ul>
-
-        <img src="Practica Gestio Usuaris Part 1/image06.png">
-
-        <h2>Nivell 3 i Repte 3: Gestió de Grups del Sistema</h2>
-        <p>Creació i depuració dels grups de treball de l'empresa o projecte.</p>
-        <ul>
-            <li>S'utilitzen de manera equivalent <code>groupadd</code> i <code>addgroup</code> per donar d'alta els grups de treball: <code>programadors</code>, <code>artistes</code>, <code>testers</code> i <code>becaris</code>.</li>
-            <li><strong>Correcció d'errors:</strong> Es detecta una errada tipogràfica en crear el grup <code>progamadors</code> (sense la segona 'r') i s'elimina immediatament amb la comanda <code>sudo groupdel progamadors</code>.</li>
-            <li><strong>Repte 3 (Grup personalitzat):</strong> Es crea el grup <code>musica</code> assignant-li un identificador de grup (GID) específic (2000) amb la comanda <code>sudo groupadd -g 2000 musica</code>.</li>
-        </ul>
-
-        <img src="Practica Gestio Usuaris Part 1/image07.png">
-
-        <h2>Nivell 4 i Repte 4: Assignació d'Usuaris a Grups</h2>
-        <p>Es vinculen els usuaris amb els perfils laborals o rols mitjançant la modificació de grups secundaris.</p>
-        <ul>
-            <li>S'afegeixen els usuaris als grups corresponents utilitzant diferents mètodes:
-                <ul>
-                    <li><code>usermod -aG</code> per afegir grups secundaris sense esborrar els anteriors.</li>
-                    <li><code>gpasswd -a</code> per afegir un usuari a un grup de forma directa.</li>
-                    <li><code>adduser &lt;usuari&gt; &lt;grup&gt;</code>.</li>
-                </ul>
-            </li>
-            <li>S'elimina l'usuari <code>laia</code> del grup <code>artistes</code> utilitzant <code>sudo gpasswd -d laia artistes</code>.</li>
-            <li><strong>Repte 4:</strong> S'afegeix l'usuari <code>sara</code> simultàniament als grups <code>musica</code> i <code>artistes</code> mitjançant <code>sudo usermod -aG musica,artistes sara</code>.</li>
-        </ul>
-        <p>Es verifica el resultat final llistant els grups amb <code>getent group</code>.</p>
-
-        <img src="Practica Gestio Usuaris Part 1/image08.png">
-
-        <h2>Nivell 5 i Repte 5: Modificació del Grup Primari i Propietats de Fitxers</h2>
-        <p>Demostració de com afecta el grup primari d'un usuari a la creació de nous fitxers.</p>
-        <ul>
-            <li><strong>Cas d'estudi <code>pau</code>:</strong>
-                <ul>
-                    <li>Inicialment, el seu grup primari és <code>pau</code>. En fer <code>touch dibuix_abans.png</code>, el fitxer pertany al grup <code>pau</code>.</li>
-                    <li>L'administrador canvia el seu grup primari a <code>programadors</code> amb <code>sudo usermod -g programadors pau</code>.</li>
-                    <li>En tornar a entrar i crear <code>codi_despres.py</code>, el nou fitxer neix directament assignat al grup <code>programadors</code>.</li>
-                </ul>
-            </li>
-            <li><strong>Repte 5 (<code>sara</code>):</strong>
-                <ul>
-                    <li>Es repeteix el mateix procés: es crea un fitxer amb el seu grup primari original (<code>sara</code>).</li>
-                    <li>Es canvia el seu grup primari al grup de música amb <code>sudo usermod -g musica sara</code>.</li>
-                    <li>Els nous fitxers creats passen a pertànyer automàticament al grup <code>musica</code>.</li>
-                </ul>
-            </li>
-        </ul>
-
-        <img src="Practica Gestio Usuaris Part 1/image09.png">
-
-        <h2>Nivell 6 i Repte 6: Bloqueig i Desbloqueig de Comptes</h2>
-        <p>Administració de la seguretat dels comptes d'usuari (simulació de baixes temporals o suspensions).</p>
-        <ul>
-            <li><strong>Mètode 1 (<code>passwd</code>):</strong> Es bloqueja el compte de <code>marc</code> amb <code>sudo passwd -l marc</code> (afegeix una clau <code>!</code> al <em>hash</em> de <code>/etc/shadow</code>). Es comprova l'estat amb <code>passwd -S marc</code> (mostra una 'L' de <em>Locked</em>). Posteriorment es desbloqueja amb <code>sudo passwd -u marc</code>.</li>
-            <li><strong>Mètode 2 (<code>usermod</code>):</strong> Al Repte 6 es realitza el mateix procediment per a l'usuari <code>sara</code>, utilitzant les comandes alternatives de bloqueig/desbloqueig d'usuaris: <code>sudo usermod -L sara</code> i <code>sudo usermod -U sara</code>.</li>
-        </ul>
-
-        <img src="Practica Gestio Usuaris Part 1/image10.png">
-
-        <h3>Nivell 7 i Repte 7: Modificació Avançada d'Usuaris</h3>
-        <p>Canvis en les propietats estructurals dels comptes d'usuari (noms de <em>login</em>, directoris personals i comentaris).</p>
-        <ul>
-            <li><strong>Canvi de nom i <em>home</em> (<code>nuria</code>):</strong>
-                <ul>
-                    <li>Es canvia el nom d'usuari (<em>login</em>) de <code>nuria</code> a <code>nvidal</code> amb <code>sudo usermod -l nvidal nuria</code>.
-            </li>
-        <img src="Practica Gestio Usuaris Part 1/image14.png">
-
-        <h3>Nivell 8: Eliminació de Comptes i Grups</h3>
-          <p>Neteja de comptes estructurals i grups obsolets que ja no es necessiten dins del projecte.</p>
-            <ul>
-              <li><strong>Comprovació prèvia del directori home:</strong> S'inspecciona l'estat amb <code>ls -l /home</code>, comprovant que l'usuari laia apareix associat al seu UID (1004) un cop extingit el seu compte.</li>
-              <li><strong>Eliminació de l'usuari:</strong> S'esborra l'usuari del sistema utilitzant la comanda <code>sudo deluser laia</code>.</li>
-              <li><strong>Eliminació de fitxers personals:</strong> S'esborra de forma definitiva el seu directori d'usuari associat amb <code>sudo rm -r /home/laia</code>.</li>
-              <li><strong>Eliminació del grup:</strong> Es destrueix el grup de treball que feia servir l'usuari mitjançant la comanda <code>sudo delgroup becaris</code>.</li>
-            </ul>
-            <img src="Practica Gestio Usuaris Part 1/image17.png">
-           <h3>Comprovació · L'Estat final de PIXELFORGE</h3>
-            <img src="Practica Gestio Usuaris Part 1/image16.png">
-            
-            
-        <h3>Repte 8: Resolució de Conflictes en l'Eliminació de Grups Actius</h3>
-          <p>Gestió d'errors de seguretat del sistema operatiu quan un grup actua com a base principal d'un usuari en actiu.</p>
-            <ul>
-              <li><strong>Intent inicial i fallada:</strong> S'intenta suprimir el grup amb <code>groupdel musica</code>, però el sistema genera un error indicant que no es pot eliminar el grup primari de l'usuari «sara».</li>
-              <li><strong>Canvi del grup primari de seguretat:</strong> Es modifica el grup primari de l'usuari cap a un grup comú del sistema amb la comanda <code>sudo usermod -g users sara</code>.</li>
-              <li><strong>Eliminació definitiva del grup:</strong> Una vegada alliberat el vincle principal de l'usuari amb el grup, s'elimina correctament amb privilegis d'administració executant <code>sudo groupdel musica</code>.</li>
-            </ul>
-            <img src="Practica Gestio Usuaris Part 1/image3.png">
-
+      <h3>Nivell 0</h3>
+        <p>Comprovació inicial de l'entorn de treball i usuaris del sistema.</p>
+        <img src="Practica Gestio Usuaris Part 1/image15.png" alt="Nivell 0 - Estat inicial">
+        
+        <h3>Repte 0</h3>
+        <img src="Practica Gestio Usuaris Part 1/image25.png" alt="Repte 0 - Verificació d'entorn">
+        
+        <h3>Nivell 1</h3>
+        <p>Creació d'usuaris, grups i assignació de directori personal.</p>
+        <img src="Practica Gestio Usuaris Part 1/image18.png" alt="Nivell 1 - Creació d'usuaris amb useradd">
+        <img src="Practica Gestio Usuaris Part 1/image22.png" alt="Nivell 1 - Assignació de contrasenyes">
+        <img src="Practica Gestio Usuaris Part 1/image24.png" alt="Nivell 1 - Verificació a /etc/passwd">
+        <img src="Practica Gestio Usuaris Part 1/image20.png" alt="Nivell 1 - Creació de grups de treball">
+        <img src="Practica Gestio Usuaris Part 1/image10.png" alt="Nivell 1 - Comprovació d'identificadors de grup">
+        <img src="Practica Gestio Usuaris Part 1/image9.png" alt="Nivell 1 - Pertinença a grups amb la comanda groups">
+        <img src="Practica Gestio Usuaris Part 1/image5.png" alt="Nivell 1 - Validació d'usuaris al sistema">
+        <img src="Practica Gestio Usuaris Part 1/image4.png" alt="Nivell 1 - Estat final del Nivell 1">
+        
+        <h3>Repte 1</h3>
+        <img src="Practica Gestio Usuaris Part 1/image27.png" alt="Repte 1 - Resolució del Repte 1">
+        
+        <h3>Nivell 2</h3>
+        <p>Gestió de propietaris (chown) i permisos (chmod) sobre els directoris de treball.</p>
+        <img src="Practica Gestio Usuaris Part 1/image19.png" alt="Nivell 2 - Assegurar directoris amb chmod">
+        <img src="Practica Gestio Usuaris Part 1/image21.png" alt="Nivell 2 - Canvi de grup i propietari amb chown">
+        
+        <h3>Repte 2</h3>
+        <img src="Practica Gestio Usuaris Part 1/image6.png" alt="Repte 2 - Resolució del Repte 2">
+        
+        <h3>Nivell 3</h3>
+        <p>Definició de polítiques de contrasenyes i seguretat.</p>
+        <img src="Practica Gestio Usuaris Part 1/image12.png" alt="Nivell 3 - Aplicació de la comanda chage">
+        
+        <h3>Repte 3</h3>
+        <img src="Practica Gestio Usuaris Part 1/image26.png" alt="Repte 3 - Resolució del Repte 3">
+        
+        <h3>Nivell 4</h3>
+        <p>Concessió de privilegis de superusuari i edició del fitxer sudoers.</p>
+        <img src="Practica Gestio Usuaris Part 1/image1.png" alt="Nivell 4 - Configuració de permisos sudo">
+        
+        <h3>Repte 4</h3>
+        <img src="Practica Gestio Usuaris Part 1/image13.png" alt="Repte 4 - Prova d'execució amb sudo">
+        
+        <h3>Nivell 5</h3>
+        <p>Configuració de permisos especials i restricció en espais compartits.</p>
+        <img src="Practica Gestio Usuaris Part 1/image2.png" alt="Nivell 5 - Aplicació de permisos de col·laboració">
+        
+        <h3>Repte 5</h3>
+        <img src="Practica Gestio Usuaris Part 1/image23.png" alt="Repte 5 - Resolució del Repte 5">
+        
+        <h3>Nivell 6</h3>
+        <p>Gestió de la baixa d'usuaris i eliminació de comptes al sistema.</p>
+        <img src="Practica Gestio Usuaris Part 1/image8.png" alt="Nivell 6 - Execució de la comanda userdel">
+        
+        <h3>Repte 6</h3>
+        <img src="Practica Gestio Usuaris Part 1/image7.png" alt="Repte 6 - Resolució del Repte 6">
+        
+        <h3>Nivell 7</h3>
+        <p>Reassignació i modificació de grups principals i secundaris.</p>
+        <img src="Practica Gestio Usuaris Part 1/image11.png" alt="Nivell 7 - Modificació d'usuaris amb usermod">
+        
+        <h3>Repte 7</h3>
+        <img src="Practica Gestio Usuaris Part 1/image14.png" alt="Repte 7 - Resolució del Repte 7">
+        
+        <h3>Nivell 8</h3>
+        <p>Auditoria i revisió de seguretat de l'entorn.</p>
+        <img src="Practica Gestio Usuaris Part 1/image17.png" alt="Nivell 8 - Revisió final de permisos i fitxers">
+        
+        <h3>COMPROVACIÓ · L'ESTAT FINAL DE PIXELFORGE</h3>
+        <img src="Practica Gestio Usuaris Part 1/image16.png" alt="Comprovació de l'estat final de PixelForge">
+        
+        <h3>Repte 8</h3>
+        <p>No deixa eliminar-lo perquè Sara és l’usuari administrador d’aquell grup.</p>
+        <img src="Practica Gestio Usuaris Part 1/image3.png" alt="Repte 8 - Resolució de restricció de grup">
 
       <h3>4.2. La missió · PixelForge Part2</h3>
       
