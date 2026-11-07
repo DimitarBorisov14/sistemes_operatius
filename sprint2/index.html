@@ -126,10 +126,8 @@
         <img src="Pràctica de recuperació de fitxers després d'un formateig/pas5.3.png" alt="Captura del pas 5.3 on la cerca amb grep no dona cap resultat">
 
       <h2>1.6. Particions</h2>
-         <h1>Documentació d'Activitats de Sistemes Operatius</h1>
-
     <!-- Activitat 1 -->
-    <h2>1. Llistar els dispositius d'emmagatzematge</h2>
+    <h3>1.6.1 Llistar els dispositius d'emmagatzematge</h3>
     <p>Es fa servir la comanda <code>fdisk -l</code> per llistar els dispositius d'emmagatzematge connectats a la màquina:</p>
     <ul>
         <li><strong>/dev/sda:</strong> Disc principal de 25 GiB configurat amb taula de particions GPT, on resideix el sistema operatiu dividit en la partició arrel (/), l'arrencada (/boot) i l'espai d'usuaris (/home).</li>
@@ -140,7 +138,7 @@
 
     </ul>
     <!-- Activitat 2 -->
-    <h2>2. Creació del sistema de fitxers (Formatació)</h2>
+    <h3>1.6.2 Creació del sistema de fitxers (Formatació)</h3>
     <p>S'ha donat format a la partició /dev/sdb1 amb el sistema de fitxers ext4 utilitzant una mida de bloc personalitzada:</p>
       <img src="Practica Particions/image3.png">
     <ul>
@@ -151,7 +149,7 @@
     <img src="Practica Particions/image19.png">
 
     <!-- Activitat 3 -->
-    <h2>3. Muntatge manual i verificació de persistència de dades</h2>
+    <h3>1.6.3 Muntatge manual i verificació de persistència de dades</h3>
     <p>Es realitzen operacions de muntatge temporal per comprovar la lectura i escriptura del disc:</p>
     <ul>
         <li><strong>Creació del punt de muntatge:</strong> Creem el directori /mnt/particio1.</li>
@@ -166,7 +164,7 @@
     <img src="Practica Particions/image14.png">>
 
     <!-- Activitat 4 -->
-    <h2>4. Automatització del muntatge en l'arrencada</h2>
+    <h3>1.6.4 Automatització del muntatge en l'arrencada</h3>
     <p>Per evitar haver de muntar el disc manualment cada vegada que s'iniciï el PC, s'ha editat el fitxer de configuració del sistema:</p>
     <ul>
         <li>S'obté l'identificador únic de la partició amb <code>blkid | grep sdb1</code>.</li>
@@ -179,7 +177,7 @@
     
 
     <!-- Segona Partició -->
-    <h2>2a Partició NTFS</h2>
+    <h3>2a Partició NTFS</h3>
     <img src="Practica Particions/image5.png">
     <img src="Practica Particions/image9.png">
     <img src="Practica Particions/image1.png">
@@ -213,6 +211,9 @@
       </ul>
       <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
     </article>
+
+
+
     <article class="apartat" id="apartat4">
       <h2>4. Gestio d'usuaris i grups i permisos</h2>
       <h3>4.1. La missió · PixelForge</h3>
