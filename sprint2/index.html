@@ -431,8 +431,78 @@ while true; do; done</code></pre>
         <img src="Practica Gestio Usuaris Part 1/image3.png" alt="Repte 8 - Resolució de restricció de grup">
 
       <h3>4.2. La missió · PixelForge Part2</h3>
-      
 
+        <h3>Nivell 0</h3>
+        <p>Verificació de l'estat inicial del sistema. Inspecció dels usuaris actius i els grups predeterminats abans d'aplicar qualsevol modificació al sistema.</p>
+        <img src="Practica Gestio Usuaris Part 2/image17.png" alt="Nivell 0 - Estat inicial del sistema i usuaris">
+        
+        <h3>Nivell 1</h3>
+        <p>Creació de nous comptes d'usuari i definició de grups de treball mitjançant les eines <code>useradd</code> i <code>groupadd</code>, determinant els directoris *home* corresponents.</p>
+        <img src="Practica Gestio Usuaris Part 2/image3.png" alt="Nivell 1 - Creació d'usuaris i grups">
+        
+        <h3>Repte 1</h3>
+        <p>Validació de la correcta configuració de la identitat dels usuaris. Comprovació dels UID i GID assignats llegint directament els arxius de sistema <code>/etc/passwd</code> i <code>/etc/group</code>.</p>
+        <img src="Practica Gestio Usuaris Part 2/image10.png" alt="Repte 1 - Verificació d'identificadors">
+        
+        <h3>Nivell 2</h3>
+        <p>Gestió d'accés a directoris. Ús de la comanda <code>chown</code> per reassignar la propietat dels directoris creats als nous usuaris i grups departamentals.</p>
+        <img src="Practica Gestio Usuaris Part 2/image1.png" alt="Nivell 2 - Canvi de propietaris">
+        
+        <h3>Repte 2</h3>
+        <p>Establiment dels permisos lectura, escriptura i execució amb la comanda <code>chmod</code>, garantint la privacitat dels directoris personals.</p>
+        <img src="Practica Gestio Usuaris Part 2/image6.png" alt="Repte 2 - Ajust de permisos de privacitat">
+        
+        <h3>Nivell 3</h3>
+        <p>Increment de la seguretat en l'autenticació. Aplicació de restriccions a les contrasenyes, forçant-ne la renovació periòdica mitjançant paràmetres de la comanda <code>chage</code>.</p>
+        <img src="Practica Gestio Usuaris Part 2/image15.png" alt="Nivell 3 - Polítiques de contrasenya">
+        
+        <h3>Repte 3</h3>
+        <p>Comprovació que la configuració de caducitat i avisos d'expiració de contrasenya han quedat registrats correctament al fitxer <code>/etc/shadow</code>.</p>
+        <img src="Practica Gestio Usuaris Part 2/image4.png" alt="Repte 3 - Validació a /etc/shadow">
+        
+        <h3>Nivell 4</h3>
+        <p>Elevació de privilegis. Edició segura del fitxer de configuració de sudo mitjançant <code>visudo</code> per atorgar drets administratius limitats.</p>
+        <img src="Practica Gestio Usuaris Part 2/image11.png" alt="Nivell 4 - Configuració de sudoers">
+        
+        <h3>Repte 4</h3>
+        <p>Auditoria pràctica dels permisos sudo: comprovació que l'usuari delegat pot executar comandes administratives i que la resta d'usuaris reben un missatge d'accés denegat.</p>
+        <img src="Practica Gestio Usuaris Part 2/image7.png" alt="Repte 4 - Prova de privilegis sudo">
+        
+        <h3>Nivell 5</h3>
+        <p>Treball col·laboratiu i permisos avançats. Aplicació del <em>Sticky Bit</em> o <em>SGID</em> en un directori compartit per evitar que usuaris puguin esborrar arxius de companys.</p>
+        <img src="Practica Gestio Usuaris Part 2/image16.png" alt="Nivell 5 - Aplicació de permisos especials">
+        
+        <h3>Repte 5</h3>
+        <p>Demostració del funcionament dels permisos especials amb dos comptes diferents, confirmant l'escriptura compartida i el bloqueig d'esborrat no autoritzat.</p>
+        <img src="Practica Gestio Usuaris Part 2/image8.png" alt="Repte 5 - Testeig de permisos especials">
+        
+        <h3>Nivell 6</h3>
+        <p>Gestió de baixes. Eliminació de comptes d'usuari (<code>userdel</code>) determinant de manera específica quins arxius personals s'han de mantenir com a còpia de seguretat.</p>
+        <img src="Practica Gestio Usuaris Part 2/image13.png" alt="Nivell 6 - Eliminació d'usuaris">
+        
+        <h3>Repte 6</h3>
+        <p>Verificació que el compte ha estat totalment erradicat del sistema d'autenticació, però que els seus fitxers personals s'han conservat correctament o eliminat segons el criteri requerit.</p>
+        <img src="Practica Gestio Usuaris Part 2/image2.png" alt="Repte 6 - Validació post-eliminació">
+        
+        <h3>Nivell 7</h3>
+        <p>Modificació de pertinences. Ús de <code>usermod -aG</code> per integrar usuaris existents dins de nous grups secundaris sense sobreescriure les seves pertinences actuals.</p>
+        <img src="Practica Gestio Usuaris Part 2/image12.png" alt="Nivell 7 - Afegir usuaris a grups secundaris">
+        
+        <h3>Repte 7</h3>
+        <p>Verificació ràpida amb la comanda <code>id</code> per confirmar que l'usuari modificat ara posseeix múltiples grups actius en la seva sessió.</p>
+        <img src="Practica Gestio Usuaris Part 2/image9.png" alt="Repte 7 - Comprovació amb comanda id">
+        
+        <h3>Nivell 8</h3>
+        <p>Revisió general de seguretat, anàlisi de connexions recents i verificació que cap paràmetre ha compromès el sistema operatiu host.</p>
+        <img src="Practica Gestio Usuaris Part 2/image18.png" alt="Nivell 8 - Auditoria global de l'estat del sistema">
+        
+        <h3>Part B</h3>
+        <p>Resolució d'escenaris de bloqueig i anàlisi de conflictes entre usuaris, grups i restriccions del sistema d'arxius.</p>
+        <img src="Practica Gestio Usuaris Part 2/image14.png" alt="Part B - Anàlisi i resolució de conflictes">
+        
+        <h3>Repte 8</h3>
+        <p>Test final d'eliminació de grups o de fitxers delicats, justificant els possibles errors de permisos (ex: no es pot eliminar perquè un usuari administrador compta amb dependències actives al grup).</p>
+        <img src="Practica Gestio Usuaris Part 2/image5.png" alt="Repte 8 - Verificació d'eliminacions i restriccions">
 
       
       <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
