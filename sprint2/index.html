@@ -504,6 +504,207 @@ while true; do; done</code></pre>
         <p>Test final d'eliminació de grups o de fitxers delicats, justificant els possibles errors de permisos (ex: no es pot eliminar perquè un usuari administrador compta amb dependències actives al grup).</p>
         <img src="Practica Gestio Usuaris Part 2/image5.png" alt="Repte 8 - Verificació d'eliminacions i restriccions">
 
+<h3>4.3. La missió · PixelForge Part3</h3>
+  <h3>Nivell 0 · Els fitxers invisibles </h3>
+    <p><strong>Objectiu:</strong> Descobrir els fitxers ocults del directori personal i el seu origen al directori model <br/>
+    /etc/skel. </p>
+
+    S'ha llistat el contingut del directori personal amb ls -a per visualitzar els fitxers que <br/>
+    comencen per punt (.bashrc, .profile, .bash_logout, etc.). </p>
+
+    S'ha inspeccionat /etc/skel amb ls -la /etc/skel, comprovant que conté els <br/>
+    tres fitxers de configuració base propietat de root. </p>
+
+    S'ha executat sudo diff /etc/skel/.bashrc /home/pau/.bashrc sense <br/>
+    obtenir cap sortida, confirmant que els fitxers d'un usuari nou són una còpia exacta <br/>
+    del model. </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p1_6.png"/>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p1_8.png"/>
+
+<h3>Repte 0 </h3>
+
+    S'ha obert l'explorador de fitxers gràfic i s'ha utilitzat la drecera Ctrl + H per <br/>
+    mostrar i tornar a amagar els fitxers ocults. </p>
+    <p>Ocults amb Ctrl + H </p>
+    <p>Sense ocultar </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p1_14.png"/>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p1_15.png"/>
+
+
+<h3>Nivell 1 · Llegir la configuració </h3>
+    <p><strong>Objectiu:</strong> Analitzar el contingut dels fitxers de configuració de l'entorn (.profile, <br/>
+    .bashrc i .bash_logout). </p>
+
+    S'han localitzat els àlies predefinits a ~/.bashrc amb grep -n alias ~/.bashrc <br/>
+    (com ll, la i l). </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p2_3.png"/>
+
+    S'ha comprovat la definició de ll mitjançant type ll. </p>
+
+    S'ha consultat la mida de l'historial d'ordres amb grep -n HIST ~/.bashrc, <br/>
+    verificant que HISTSIZE=1000 i HISTFILESIZE=2000. </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p2_7.png"/>
+      
+<h3>Repte 1 </h3>
+    <p><strong>la</strong><strong>:</strong> És un <strong>àlies</strong> (ls -A). </p>
+    <p><strong>cd</strong><strong>:</strong> És una <strong>ordre interna</strong> de l'intèrpret de comandes (<em>builtin</em>). </p>
+    <p><strong>nano</strong><strong>:</strong> És un <strong>programa</strong> extern situat a /usr/bin/nano. </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p2_13.png"/>
+
+
+<h3>Nivell 2 · Modificació de la terminal </h3>
+    <p><strong>Objectiu:</strong> Personalitzar l'entorn de l'administrador modificant el fitxer ~/.bashrc. </p>
+
+    S'ha creat una còpia de seguretat a ~/copies/bashrc_meu. </p>
+
+    S'ha afegit al final de ~/.bashrc el prefix [ADMIN] a la variable PS1, l'àlies <br/>
+    nous='tail -4 /etc/passwd' i un missatge de benvinguda amb echo. </p>
+
+    S'han aplicat i verificat els canvis obrint una pestanya nova del terminal i executant <br/>
+    nous. </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p3_5.png"/>
+<h3>Repte 2 </h3>
+
+    S'ha afegit la línia HISTSIZE=5000 al final de ~/.bashrc perquè prevalgui sobre el <br/>
+    valor inicial de 1000 ordres. </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p3_10.png"/>
+
+<h3>Nivell 3 · Tipus de logins </h3>
+    <p><strong>Objectiu:</strong> Comprovar l'abast individual de les configuracions i diferenciar un <em>shell</em> de <em>login</em> <br/>
+    d'un que no ho és. </p>
+
+    En accedir com a pau amb su - pau, l'àlies nous retorna error perquè cada usuari <br/>
+    té el seu propi .bashrc. </p>
+
+    Mitjançant shopt login_shell s'ha vist que un terminal gràfic normal és off <br/>
+    (només llegeix .bashrc), mentre que en iniciar amb bash -l passa a on (llegeix <br/>
+    .profile i executa .bash_logout en sortir amb exit). </p>
+
+    S'ha afegit un missatge de comiat a ~/.bash_logout. </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p4_5.png"/>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p4_7.png"/>
+
+<h3>Repte 3 </h3>
+
+    En entrar amb su pau (sense guió), shopt login_shell mostra off i pwd indica <br/>
+    que ens mantenim al directori anterior (/home/dimitar/Escritorio). </p>
+
+    <strong>Diferència:</strong> su - pau inicia un <em>shell</em> de <em>login</em> complet carregant les variables <br/>
+    d'entorn de l'usuari i situant-nos a la seva carpeta personal (/home/pau), mentre <br/>
+    que su pau manté l'entorn i el directori de treball de la sessió anterior. </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p4_12.png"/>
+
+<h3>Nivell 4 · Kit de Benvinguda </h3>
+    <p><strong>Objectiu:</strong> Configurar la plantilla /etc/skel perquè els nous usuaris rebin l'entorn <br/>
+    corporatiu de PixelForge. </p>
+
+    S'han desat còpies dels fitxers originals a ~/copies/. </p>
+
+    S'ha creat /etc/skel/BENVINGUDA.txt i la carpeta /etc/skel/projectes. </p>
+
+    S'han personalitzat /etc/skel/.bashrc (prompt [PixelForge] i àlies projectes <br/>
+    i ajuda), /etc/skel/.profile (missatge d'entrada) i /etc/skel/.bash_logout <br/>
+    (missatge de sortida). </p>
+
+    S'ha verificat l'estructura amb ls -la /etc/skel i diff. </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p5_6.png"/>
+
+<h3>Repte 4 </h3>
+
+    S'ha afegit l'àlies alias equip='groups $USER' al fitxer /etc/skel/.bashrc i <br/>
+    s'ha comprovat la modificació amb diff ~/copies/skel_bashrc <br/>
+    /etc/skel/.bashrc. </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p5_11.png"/>
+
+<h3>Nivell 5 · Ona </h3>
+    <p><strong>Objectiu:</strong> Validar el funcionament del kit de benvinguda creant un usuari nou. </p>
+
+    S'ha creat l'usuari ona amb sudo adduser ona. </p>
+
+    En iniciar sessió amb su - ona, s'ha comprovat que apareix el missatge de <br/>
+    benvinguda, el prompt [PixelForge] i que els àlies ajuda i projectes funcionen <br/>
+    correctament. </p>
+
+    S'ha verificat amb sudo ls -l /home/nvidal que els usuaris creats anteriorment <br/>
+    no reben el kit automàticament. </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p6_5.png"/>
+    <p>Repte 5 </p>
+
+    S'ha copiat BENVINGUDA.txt a /home/nvidal/ amb sudo cp. En llistar-lo amb ls <br/>
+    -l, el propietari i grup del fitxer apareixen com a root:root, fet que impedirà que la <br/>
+    Núria el pugui modificar o gestionar amb normalitat. </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p6_9.png"/>
+
+<h3>Nivell 6 · Regles <strong>useradd </strong></h3>
+    <p><strong>Objectiu:</strong> Modificar el <em>shell</em> per defecte de l'ordre useradd. </p>
+
+    S'ha comprovat que /etc/default/useradd assignava SHELL=/bin/sh en crear <br/>
+    l'usuari quim sense l'opció -s. </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p7_3.png"/>
+
+    S'ha esborrat l'usuari amb sudo userdel -r quim i s'ha canviat el valor per <br/>
+    defecte executant sudo useradd -D -s /bin/bash. </p>
+
+    S'ha tornat a crear quim, verificant amb getent passwd quim que ara se li assigna <br/>
+    /bin/bash i el kit de PixelForge. </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p7_7.png"/>
+
+<h3>Repte 6 </h3>
+
+    S'ha creat la plantilla /etc/skel_becaris amb el fitxer NORMES.txt i s'ha creat <br/>
+    becari1 amb sudo useradd -m -k /etc/skel_becaris becari1. El seu <br/>
+    directori només conté NORMES.txt (no té ni BENVINGUDA.txt ni .bashrc) perquè <br/>
+    el paràmetre -k substitueix el directori model /etc/skel per defecte. </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p7_11.png"/>
+
+<h3>Nivell 7 · Regles <strong>adduser </strong></h3>
+    <p><strong>Objectiu:</strong> Automatitzar l'assignació d'un grup secundari per als nous usuaris creats <br/>
+    amb adduser. </p>
+
+    S'ha creat el grup pixelforge amb sudo groupadd pixelforge. </p>
+
+    S'ha editat /etc/adduser.conf descomentant i configurant </p>
+    <p>EXTRA_GROUPS="pixelforge" i ADD_EXTRA_GROUPS=1. </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p8_5.png"/>
+
+    S'ha creat l'usuari biel amb sudo adduser biel i s'ha comprovat amb id </p>
+    <p>biel que s'ha afegit automàticament al grup pixelforge, a diferència de <br/>
+    l'Ona. </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p8_9.png"/>
+
+<h3>Repte 7  </h3>
+
+    S'ha afegit l'Ona al grup mitjançant sudo usermod -aG pixelforge ona. </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p8_13.png"/>
+
+    El valor per defecte de DIR_MODE a /etc/adduser.conf és 0750, fet que es <br/>
+    tradueix en els permisos drwxr-x--- observats a /home/biel. </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p8_16.png"/>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p8_18.png"/>
+    
+<h3>Nivell 8 · Regles Contrasenyes </h3>
+    <p><strong>Objectiu:</strong> Establir polítiques de caducitat de contrasenyes per als nous comptes a <br/>
+    /etc/login.defs. </p>
+
+    S'ha verificat amb sudo chage -l ona que els comptes existents mantenen <br/>
+    la configuració anterior (99999 i 7). </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p9_3.png"/>
+
+    S'han modificat els paràmetres PASS_MAX_DAYS 90 i PASS_WARN_AGE 14 dins <br/>
+    de /etc/login.defs. </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p9_6.png"/>
+
+    S'ha creat la usuària jana amb sudo adduser jana i s'ha comprovat amb sudo <br/>
+    chage -l jana que la seva contrasenya caduca al cap de 90 dies amb 14 dies <br/>
+    d'avís </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p9_9.png"/>
+<h3>Repte 8 </h3>
+
+    S'ha afegit CREATE_HOME yes al final de /etc/login.defs. En executar sudo <br/>
+    useradd prova sense el paràmetre -m, s'ha comprovat amb ls -ld <br/>
+    /home/prova/ que el sistema crea igualment el seu directori personal per defecte. </p>
+    <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p9_13.png"/>
+
       
       <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
 
