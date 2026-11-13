@@ -538,10 +538,9 @@ while true; do; done</code></pre>
     (com ll, la i l). </p>
     <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p2_3.png"/>
 
-    S'ha comprovat la definició de ll mitjançant type ll. </p>
+    <p>S'ha comprovat la definició de ll mitjançant type ll.</p>
 
-    S'ha consultat la mida de l'historial d'ordres amb grep -n HIST ~/.bashrc, <br/>
-    verificant que HISTSIZE=1000 i HISTFILESIZE=2000. </p>
+    S'ha consultat la mida de l'historial d'ordres amb grep -n HIST ~/.bashrc, verificant que HISTSIZE=1000 i HISTFILESIZE=2000. </p>
     <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p2_7.png"/>
       
 <h3>Repte 1 </h3>
@@ -554,42 +553,34 @@ while true; do; done</code></pre>
 <h3>Nivell 2 · Modificació de la terminal </h3>
     <p><strong>Objectiu:</strong> Personalitzar l'entorn de l'administrador modificant el fitxer ~/.bashrc. </p>
 
-    S'ha creat una còpia de seguretat a ~/copies/bashrc_meu. </p>
+    <p>S'ha creat una còpia de seguretat a ~/copies/bashrc_meu.</p>
 
-    S'ha afegit al final de ~/.bashrc el prefix [ADMIN] a la variable PS1, l'àlies <br/>
-    nous='tail -4 /etc/passwd' i un missatge de benvinguda amb echo. </p>
+    <p>S'ha afegit al final de ~/.bashrc el prefix [ADMIN] a la variable PS1, l'àlies nous='tail -4 /etc/passwd' i un missatge de benvinguda amb echo. </p>
 
-    S'han aplicat i verificat els canvis obrint una pestanya nova del terminal i executant <br/>
-    nous. </p>
+    <p>S'han aplicat i verificat els canvis obrint una pestanya nova del terminal i executant nous. </p>
     <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p3_5.png"/>
 <h3>Repte 2 </h3>
 
-    S'ha afegit la línia HISTSIZE=5000 al final de ~/.bashrc perquè prevalgui sobre el <br/>
-    valor inicial de 1000 ordres. </p>
+    <p>S'ha afegit la línia HISTSIZE=5000 al final de ~/.bashrc perquè prevalgui sobre el valor inicial de 1000 ordres. </p>
     <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p3_10.png"/>
 
 <h3>Nivell 3 · Tipus de logins </h3>
-    <p><strong>Objectiu:</strong> Comprovar l'abast individual de les configuracions i diferenciar un <em>shell</em> de <em>login</em> <br/>
-    d'un que no ho és. </p>
+    <p><strong>Objectiu:</strong> Comprovar l'abast individual de les configuracions i diferenciar un <em>shell</em> de <em>login</em>d'un que no ho és. </p>
 
-    En accedir com a pau amb su - pau, l'àlies nous retorna error perquè cada usuari <br/>
-    té el seu propi .bashrc. </p>
+    <p>En accedir com a pau amb su - pau, l'àlies nous retorna error perquè cada usuari té el seu propi .bashrc. </p>
 
-    Mitjançant shopt login_shell s'ha vist que un terminal gràfic normal és off <br/>
-    (només llegeix .bashrc), mentre que en iniciar amb bash -l passa a on (llegeix <br/>
-    .profile i executa .bash_logout en sortir amb exit). </p>
+    <p>Mitjançant shopt login_shell s'ha vist que un terminal gràfic normal és off (només llegeix .bashrc), mentre que en iniciar amb bash -l passa a on (llegeix .profile i executa .bash_logout en sortir amb exit). </p>
 
-    S'ha afegit un missatge de comiat a ~/.bash_logout. </p>
+    <p>S'ha afegit un missatge de comiat a ~/.bash_logout.</p>
     <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p4_5.png"/>
     <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p4_7.png"/>
 
 <h3>Repte 3 </h3>
 
-    En entrar amb su pau (sense guió), shopt login_shell mostra off i pwd indica <br/>
-    que ens mantenim al directori anterior (/home/dimitar/Escritorio). </p>
+    <p>En entrar amb su pau (sense guió), shopt login_shell mostra off i pwd indica que ens mantenim al directori anterior (/home/dimitar/Escritorio). </p>
 
-    <strong>Diferència:</strong> su - pau inicia un <em>shell</em> de <em>login</em> complet carregant les variables <br/>
-    d'entorn de l'usuari i situant-nos a la seva carpeta personal (/home/pau), mentre <br/>
+    <p><strong>Diferència:</strong> su - pau inicia un <em>shell</em> de <em>login</em> complet carregant les variables
+    d'entorn de l'usuari i situant-nos a la seva carpeta personal (/home/pau), mentre
     que su pau manté l'entorn i el directori de treball de la sessió anterior. </p>
     <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p4_12.png"/>
 
@@ -597,62 +588,62 @@ while true; do; done</code></pre>
     <p><strong>Objectiu:</strong> Configurar la plantilla /etc/skel perquè els nous usuaris rebin l'entorn <br/>
     corporatiu de PixelForge. </p>
 
-    S'han desat còpies dels fitxers originals a ~/copies/. </p>
+    <p>S'han desat còpies dels fitxers originals a ~/copies/. </p>
 
-    S'ha creat /etc/skel/BENVINGUDA.txt i la carpeta /etc/skel/projectes. </p>
+    <p>S'ha creat /etc/skel/BENVINGUDA.txt i la carpeta /etc/skel/projectes. </p>
 
-    S'han personalitzat /etc/skel/.bashrc (prompt [PixelForge] i àlies projectes <br/>
-    i ajuda), /etc/skel/.profile (missatge d'entrada) i /etc/skel/.bash_logout <br/>
+    <p>S'han personalitzat /etc/skel/.bashrc (prompt [PixelForge] i àlies projectes
+    i ajuda), /etc/skel/.profile (missatge d'entrada) i /etc/skel/.bash_logout
     (missatge de sortida). </p>
 
-    S'ha verificat l'estructura amb ls -la /etc/skel i diff. </p>
+    <p>S'ha verificat l'estructura amb ls -la /etc/skel i diff. </p>
     <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p5_6.png"/>
 
 <h3>Repte 4 </h3>
 
-    S'ha afegit l'àlies alias equip='groups $USER' al fitxer /etc/skel/.bashrc i <br/>
-    s'ha comprovat la modificació amb diff ~/copies/skel_bashrc <br/>
+    <p>S'ha afegit l'àlies alias equip='groups $USER' al fitxer /etc/skel/.bashrc i
+    s'ha comprovat la modificació amb diff ~/copies/skel_bashrc
     /etc/skel/.bashrc. </p>
     <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p5_11.png"/>
 
 <h3>Nivell 5 · Ona </h3>
     <p><strong>Objectiu:</strong> Validar el funcionament del kit de benvinguda creant un usuari nou. </p>
 
-    S'ha creat l'usuari ona amb sudo adduser ona. </p>
+    <p>S'ha creat l'usuari ona amb sudo adduser ona. </p>
 
-    En iniciar sessió amb su - ona, s'ha comprovat que apareix el missatge de <br/>
-    benvinguda, el prompt [PixelForge] i que els àlies ajuda i projectes funcionen <br/>
+    <p>En iniciar sessió amb su - ona, s'ha comprovat que apareix el missatge de
+    benvinguda, el prompt [PixelForge] i que els àlies ajuda i projectes funcionen
     correctament. </p>
 
-    S'ha verificat amb sudo ls -l /home/nvidal que els usuaris creats anteriorment <br/>
+    <p>S'ha verificat amb sudo ls -l /home/nvidal que els usuaris creats anteriorment 
     no reben el kit automàticament. </p>
     <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p6_5.png"/>
-    <p>Repte 5 </p>
+<h3>Repte 5 </h3>
 
-    S'ha copiat BENVINGUDA.txt a /home/nvidal/ amb sudo cp. En llistar-lo amb ls <br/>
-    -l, el propietari i grup del fitxer apareixen com a root:root, fet que impedirà que la <br/>
+    <p>S'ha copiat BENVINGUDA.txt a /home/nvidal/ amb sudo cp. En llistar-lo amb ls
+    -l, el propietari i grup del fitxer apareixen com a root:root, fet que impedirà que la
     Núria el pugui modificar o gestionar amb normalitat. </p>
     <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p6_9.png"/>
 
 <h3>Nivell 6 · Regles <strong>useradd </strong></h3>
     <p><strong>Objectiu:</strong> Modificar el <em>shell</em> per defecte de l'ordre useradd. </p>
 
-    S'ha comprovat que /etc/default/useradd assignava SHELL=/bin/sh en crear <br/>
+    <p>S'ha comprovat que /etc/default/useradd assignava SHELL=/bin/sh en crear
     l'usuari quim sense l'opció -s. </p>
     <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p7_3.png"/>
 
-    S'ha esborrat l'usuari amb sudo userdel -r quim i s'ha canviat el valor per <br/>
+    <p>S'ha esborrat l'usuari amb sudo userdel -r quim i s'ha canviat el valor per
     defecte executant sudo useradd -D -s /bin/bash. </p>
 
-    S'ha tornat a crear quim, verificant amb getent passwd quim que ara se li assigna <br/>
+    <p>S'ha tornat a crear quim, verificant amb getent passwd quim que ara se li assigna
     /bin/bash i el kit de PixelForge. </p>
     <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p7_7.png"/>
 
 <h3>Repte 6 </h3>
 
-    S'ha creat la plantilla /etc/skel_becaris amb el fitxer NORMES.txt i s'ha creat <br/>
-    becari1 amb sudo useradd -m -k /etc/skel_becaris becari1. El seu <br/>
-    directori només conté NORMES.txt (no té ni BENVINGUDA.txt ni .bashrc) perquè <br/>
+    <p>S'ha creat la plantilla /etc/skel_becaris amb el fitxer NORMES.txt i s'ha creat
+    becari1 amb sudo useradd -m -k /etc/skel_becaris becari1. El seu
+    directori només conté NORMES.txt (no té ni BENVINGUDA.txt ni .bashrc) perquè
     el paràmetre -k substitueix el directori model /etc/skel per defecte. </p>
     <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p7_11.png"/>
 
@@ -660,14 +651,14 @@ while true; do; done</code></pre>
     <p><strong>Objectiu:</strong> Automatitzar l'assignació d'un grup secundari per als nous usuaris creats <br/>
     amb adduser. </p>
 
-    S'ha creat el grup pixelforge amb sudo groupadd pixelforge. </p>
+    <p>S'ha creat el grup pixelforge amb sudo groupadd pixelforge. </p>
 
-    S'ha editat /etc/adduser.conf descomentant i configurant </p>
+    <p>S'ha editat /etc/adduser.conf descomentant i configurant </p>
     <p>EXTRA_GROUPS="pixelforge" i ADD_EXTRA_GROUPS=1. </p>
     <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p8_5.png"/>
 
-    S'ha creat l'usuari biel amb sudo adduser biel i s'ha comprovat amb id </p>
-    <p>biel que s'ha afegit automàticament al grup pixelforge, a diferència de <br/>
+    <p>S'ha creat l'usuari biel amb sudo adduser biel i s'ha comprovat amb id </p>
+    <p>biel que s'ha afegit automàticament al grup pixelforge, a diferència de
     l'Ona. </p>
     <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p8_9.png"/>
 
@@ -676,7 +667,7 @@ while true; do; done</code></pre>
     S'ha afegit l'Ona al grup mitjançant sudo usermod -aG pixelforge ona. </p>
     <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p8_13.png"/>
 
-    El valor per defecte de DIR_MODE a /etc/adduser.conf és 0750, fet que es <br/>
+    <p>El valor per defecte de DIR_MODE a /etc/adduser.conf és 0750, fet que es
     tradueix en els permisos drwxr-x--- observats a /home/biel. </p>
     <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p8_16.png"/>
     <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p8_18.png"/>
@@ -685,25 +676,24 @@ while true; do; done</code></pre>
     <p><strong>Objectiu:</strong> Establir polítiques de caducitat de contrasenyes per als nous comptes a <br/>
     /etc/login.defs. </p>
 
-    S'ha verificat amb sudo chage -l ona que els comptes existents mantenen <br/>
+    <p>S'ha verificat amb sudo chage -l ona que els comptes existents mantenen
     la configuració anterior (99999 i 7). </p>
     <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p9_3.png"/>
 
-    S'han modificat els paràmetres PASS_MAX_DAYS 90 i PASS_WARN_AGE 14 dins <br/>
+    <p>S'han modificat els paràmetres PASS_MAX_DAYS 90 i PASS_WARN_AGE 14 dins
     de /etc/login.defs. </p>
     <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p9_6.png"/>
 
-    S'ha creat la usuària jana amb sudo adduser jana i s'ha comprovat amb sudo <br/>
-    chage -l jana que la seva contrasenya caduca al cap de 90 dies amb 14 dies <br/>
+    <p>S'ha creat la usuària jana amb sudo adduser jana i s'ha comprovat amb sudo
+    chage -l jana que la seva contrasenya caduca al cap de 90 dies amb 14 dies
     d'avís </p>
     <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p9_9.png"/>
 <h3>Repte 8 </h3>
 
-    S'ha afegit CREATE_HOME yes al final de /etc/login.defs. En executar sudo <br/>
-    useradd prova sense el paràmetre -m, s'ha comprovat amb ls -ld <br/>
+    <p>S'ha afegit CREATE_HOME yes al final de /etc/login.defs. En executar sudo
+    useradd prova sense el paràmetre -m, s'ha comprovat amb ls -ld
     /home/prova/ que el sistema crea igualment el seu directori personal per defecte. </p>
     <img alt="" src="Practica Gestio Usuaris Part 3/imatge_p9_13.png"/>
-
       
       <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
 
